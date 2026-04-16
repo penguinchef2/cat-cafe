@@ -1,0 +1,236 @@
+/* navbar */
+nav {
+    display: flex;
+    font-family: 'Caprasimo';
+    font-weight: 500px;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #f4c1c1;
+
+    padding: 20px 40px;   /* makes it BIGGER */
+}
+
+
+/* LINKS CONTAINER */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;            /* more space between links */
+    margin: 0;
+    padding: 0;
+}
+
+/* LINKS */
+nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;      /* bigger text */
+}
+
+/* TITLE */
+nav h1 {
+    margin: 0;
+    font-size: 28px;      /* bigger logo text */
+}
+
+/* HOME PAGE */
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+    /* makes sure footer stays at the bottom */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+
+
+.home {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.home h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.home p {
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+/* BUTTONS */
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 20px;
+    background-color: #d6b3ff;
+    color: black;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #c299ff;
+}
+
+/* CATS.HTML */
+/* CATS HEADER */
+.cats-header {
+    text-align: center;
+    padding: 30px;
+}
+
+.cats-footer {
+    text-align : center;
+    padding: 30px; 
+}
+
+.cats-footer button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #ffc800;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cats-footer button:hover {
+    background-color: #e1b61a;
+}
+
+/* ABOUT US */
+
+/* GRID LAYOUT */
+.cat-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 30px;
+}
+
+/* CAT CARDS */
+.cat-card {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* BUTTON */
+.cat-card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #d6b3ff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cat-card button:hover {
+    background-color: #c299ff;
+}
+
+.cat-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* ABOUT HEADER */
+.about-header {
+    max-width: 150px;
+    margin: 40px auto 0 auto; 
+    padding-left: 10px;
+    margin-left: 10px;
+    font-size: 32px; 
+    letter-spacing: 1px;
+}
+
+
+.about-row {
+    display: flex;
+    gap: 60px;
+
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+/* LEFT LABEL */
+.about-label {
+    width: 150px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+}
+
+.about-text {
+    flex: 1;
+    text-align: left;
+    width: 100%;
+}
+
+.about-text h3 {
+     width: 150px;
+    color: #777;
+    font-size: 12px;
+    font-weight: bold; 
+
+}
+
+.about-label p {
+    letter-spacing: 2px;
+}
+
+.about-image {
+    width: 100%;
+}
+
+.about-image img {
+    width: 90%;          /* controls size */
+    max-width: 750px;    /* prevents it getting huge */
+    height: auto;
+
+    display: block;
+    margin: 20px 0;      /* keeps it aligned left */
+    border-radius: 15px;
+}
+
+.leading-text {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* BUTTON */
+.member-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    background-color: #d6b3ff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Hanuman';
+}
+
+.member-btn:hover {
+    background-color: #c299ff;
+}
