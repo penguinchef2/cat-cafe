@@ -89,10 +89,12 @@ body {
 }
 
 /* CATS.HTML */
-/* CATS HEADER */
 .cats-header {
-    text-align: center;
-    padding: 30px;
+    margin: 40px auto 0 auto; 
+    padding-left: 10px;
+    margin-left: 10px;
+    font-size: 32px; 
+    letter-spacing: 1px;
 }
 
 .cats-footer {
@@ -104,14 +106,14 @@ body {
     margin-top: 10px;
     padding: 10px 15px;
     border: none;
-    background-color: #ffc800;
+    background-color: #d6b3ff;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
 }
 
 .cats-footer button:hover {
-    background-color: #e1b61a;
+    background-color: #c299ff;
 }
 
 /* ABOUT US */
@@ -138,26 +140,28 @@ body {
     margin-top: 10px;
     padding: 10px 15px;
     border: none;
-    background-color: #d6b3ff;
+    background-color: #ffc800;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
 }
 
 .cat-card button:hover {
-    background-color: #c299ff;
+    background-color: #e0b005;
 }
 
 .cat-card img {
     width: 100%;
+    height: 300px;
+    object-fit: cover;   /* makes all images same size */
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 /* ABOUT HEADER */
 .about-header {
-    max-width: 150px;
-    margin: 40px auto 0 auto; 
-    padding-left: 10px;
+    max-width: 65px;
+    padding-left: 5px;
     margin-left: 10px;
     font-size: 32px; 
     letter-spacing: 1px;
@@ -166,7 +170,7 @@ body {
 
 .about-row {
     display: flex;
-    gap: 60px;
+    gap: 40px;
 
     width: 100%;
     max-width: 1200px;
