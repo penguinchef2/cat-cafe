@@ -1,0 +1,51 @@
+*{
+    margin: 0px;
+}
+
+main{
+
+    width: 100%;
+
+}
+
+body{
+    width: 100%
+}
+
+.navbar{
+    background-color: #f4c1c1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 65px;
+
+}
+
+nav a{
+    color:black;
+    text-align: center;
+    padding: 25px 45px 25px 45px;
+    font-family: "Delius", cursive;
+}
+
+.cattitle{
+    font-family: "Delius", cursive;
+    font-weight: 900;
+    margin-left: 940px;
+    margin-top:40px;
+    font-size: 60px;
+
+}
+
+
+.navhover:hover{
+    background:  #faadad;
+    cursor: pointer;
+}
+
+.sampletext{
+    align-items: center;
+    display:flex;
+    flex-direction: column;
+   
+}
