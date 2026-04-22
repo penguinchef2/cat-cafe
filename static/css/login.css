@@ -1,0 +1,114 @@
+*{
+    margin: 0px;
+}
+
+main{
+
+    width: 100%;
+
+}
+
+body{
+    width: 100%
+}
+
+.navbar{
+    background-color: #f4c1c1;
+    display: flex;
+    justify-content: flex-end;
+    height: 75px;
+
+}
+
+nav a{
+    color:black;
+    text-align: center;
+    padding: 25px 55px 35px 55px;
+    font-family: "Delius", cursive;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.cattitle{
+    font-family: "Delius", cursive;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    font-size: 90px;
+    margin-top: 40px;
+    margin-bottom:5px;
+
+}
+
+
+.navhover:hover{
+    background:  #faadad;
+    cursor: pointer;
+}
+
+.logintitle{
+    font-family: "Delius", cursive;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    margin-top: 40px;
+    margin-bottom:20px;
+
+}
+
+.navhover:hover{
+    background:  #faadad;
+    cursor: pointer;
+}
+
+.form{
+    
+    background:  #cfe1b9;
+    margin-left:500px;
+    margin-right:500px;
+    height: 580px;
+    border-radius:20px;
+    padding-top:30px;
+    border:30px solid #7d8870;
+}
+
+.logintxt{
+    margin-left:25px;
+    font-size: 30px;
+    display:flex;
+    margin-top:20px;
+  
+}
+
+.box{
+    width:1000px;
+    height:50px;
+    margin-left:15px;
+    border-radius:20px;
+}
+
+.loginbtn{
+    margin-left:450px;
+    margin-top: 50px;
+    height:70px;
+    width:140px;
+    background-color: #e0c7f9;
+    border-radius:10px;
+    cursor:pointer;
+    font-family: "Delius", cursive;
+    font-size: medium;
+}
+
+.loginbtn:hover{
+    background-color: #bfaad4;
+}
+
+.registertext{
+    color: black;
+    margin-top:20px;
+    margin-bottom:20px;
+    display:flex;
+    justify-content: center;
+    font-size:large;
+}

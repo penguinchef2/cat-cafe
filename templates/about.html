@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title> About - Cat Cafe</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
@@ -15,9 +15,9 @@
     <nav>
         <h1>Cat Cafe</h1>
         <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="cats.html">Cats</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('cats') }}">Cats</a></li>
         </ul>
     </nav>
 
@@ -46,7 +46,7 @@
         </p>
 
         <div class="about-image">
-            <img src="../images/IMG_1615.jpg" alt="cat image">
+            <img src="{{ url_for('static', filename='images/IMG_1615.jpg') }}" alt="cat image">
         </div>
 
         <p>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cat Cafe</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
@@ -16,9 +16,9 @@
     <nav>
         <h1>Cat Cafe</h1>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="pages/about.html">About</a></li>
-            <li><a href="pages/cats.html">Cats</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('cats') }}">Cats</a></li>
         </ul>
     </nav>
 
@@ -30,8 +30,8 @@
         </p>
 
         <div class="home-buttons">
-            <a href="pages/cats.html" class="btn">Meet Our Cats</a>
-            <a href="pages/about.html" class="btn">Learn About Us</a>
+            <a href="{{ url_for('cats') }}" class="btn">Meet Our Cats</a>
+            <a href="{{ url_for('about') }}" class="btn">Learn About Us</a>
         </div>
     </section>
 
