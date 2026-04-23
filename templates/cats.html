@@ -14,9 +14,12 @@
     <nav>
         <h1>Cat Cafe</h1>
         <ul>
-            <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('cats') }}">Cats</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+
         </ul>
     </nav>
 
@@ -41,7 +44,7 @@
         </div>
         {% endfor %}
 
-        <div class="cat-card">
+       <!-- <div class="cat-card">
             <h3>Cathony</h3>
             <img src="{{ url_for('static', filename='images/cathony.jpg') }}" alt="Cathony">
             <p>Age: 1</p>
@@ -74,7 +77,7 @@
             <img src="{{ url_for('static', filename='images/ginger.jpg') }}" alt="Ginger">
             <p>Age: &lt; 1</p>
             <button>Meet Me!</button>
-        </div>
+        </div>  -->
 
     </section>
 
