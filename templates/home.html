@@ -15,11 +15,13 @@
         <main>
             <nav class = "navbar">
                 <a class = "navhover" href="{{ url_for('about') }}">About</a>
-                <a class = "navhover">Menu</a>
+                <a class = "navhover" href="{{url_for('menu')}}">Menu</a>
                 <a class = "navhover" href="{{ url_for('cats') }}">Cats</a>
                 <a class = "navhover">Reviews</a>
                 <a class = "navhover" href="{{ url_for('login') }}">Sign In</a>
                 <a class = "navhover">Contact</a>
+                <a class = "navhover" href="{{url_for('application')}}">Application</a>
+
             </nav>
             <section class = "title">
                 <h1 class = "cattitle">Cat Cafe</h1>

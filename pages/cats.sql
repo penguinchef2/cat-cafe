@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2026 at 03:59 PM
+-- Generation Time: Apr 23, 2026 at 10:29 PM
 -- Server version: 9.6.0
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,24 @@ SET time_zone = "+00:00";
 --
 -- Database: `cat_cafe`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applications`
+--
+
+CREATE TABLE `applications` (
+  `id` int NOT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `address` text,
+  `cat_id` int DEFAULT NULL,
+  `household_size` int DEFAULT NULL,
+  `pets` int DEFAULT NULL,
+  `housing` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -49,7 +67,7 @@ CREATE TABLE `cats` (
 INSERT INTO `cats` (`id`, `name`, `age`, `breed`, `info`, `personality`, `likes`, `dislikes`, `fun_facts`, `favorite_toy`, `image`, `available`) VALUES
 (1, 'Meowther', 2, 'Bombay', 'A sweet and loving cat looking for a home.', 'Calm, affectionate', 'Salmon, naps', 'Loud noises', 'Loves sitting on laptops', 'Plush mouse', 'meowther.jpg', 1),
 (2, 'Shochan', 4, 'Indian Calico', 'A quiet and shy cat who prefers calm environments.', 'Introverted', 'Pets and scratches', 'Other people', 'Couldn’t meow for the first few years, so she chirped instead', 'Feather on a string', 'cathony.jpg', 1),
-(3, 'Cosmo', 7, 'Domestic Shorthair', 'A calm but playful cat who loves attention and staying active.', 'Calm and fun', 'Playing, catnip, treats, mommy', 'Wet food, sleeping, letting mom sleep', 'Likes to drink water from bottle caps', 'Soft ball', 'darling2.jpg', 0),
+(3, 'Cosmo', 7, 'Domestic Shorthair', 'A calm but playful cat who loves attention and staying active.', 'Calm and fun', 'Playing, catnip, treats, mommy', 'Wet food, sleeping, letting mom sleep', 'Likes to drink water from bottle caps', 'Soft ball', 'darling2.jpg', 1),
 (4, 'Medo Bektic', 6, 'Domestic Shorthair', 'A shy but sweet cat with a playful, silly side.', 'Shy, silly, and sweet', 'Dehydrated marshmallows, treats', 'The vet', 'Won a calendar contest and is Mr. October', 'Butterfly wand, baguette plushie, hedgehog squeaky toy', 'melcattie.jpg', 1),
 (5, 'Catherine', 3, 'Bombay', 'A vocal and social cat who loves interacting with people.', 'Talkative, friendly', 'Attention, conversation', 'Being ignored', 'Will meow back if you talk to her', 'Bell ball', 'catherine.jpg', 1),
 (6, 'Ginger', 0, 'Domestic Shorthair', 'A tiny kitten full of curiosity and mischief.', 'Curious, playful', 'Exploring, climbing', 'Closed doors', 'Tries to fight objects bigger than her', 'Crinkle toy', 'ginger.jpg', 1);
@@ -57,6 +75,12 @@ INSERT INTO `cats` (`id`, `name`, `age`, `breed`, `info`, `personality`, `likes`
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cats`
@@ -67,6 +91,12 @@ ALTER TABLE `cats`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `applications`
+--
+ALTER TABLE `applications`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cats`
