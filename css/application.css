@@ -7,7 +7,7 @@
 
 body {
     width: 100%;
-    font-family: "Delius", cursive;
+    font-family: 'Outfit', sans-serif;
     background-color: #fff;
 }
 
@@ -69,7 +69,7 @@ body {
     border-radius: 10px;
     border: 1px solid #aaa;
     font-size: 18px;
-    font-family: "Delius", cursive;
+   font-family: 'Outfit', sans-serif;
 }
 
 .submit-btn {
@@ -84,4 +84,21 @@ body {
 
 .submit-btn:hover {
     background-color: #b48af3;
+}
+
+/* ---------------- SUBMITTED ---------------- */
+
+.success-message {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.success-img {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.success-message h2 {
+    font-size: 32px;
+    color: #4a4a4a;
 }

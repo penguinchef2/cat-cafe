@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Foster Application</title>
     <link rel="stylesheet" href="../css/application.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
 </head>
 <body>
 
@@ -23,6 +25,7 @@
 
 <div class="form-container">
     <form class="app-form">
+
         <label>Phone Number</label>
         <input type="text">
 
@@ -36,7 +39,12 @@
         <input type="text">
 
         <label>What Cat Are You Interested In?</label>
-        <input type="text">
+        <select name="cat_id">
+            <option value="">-- Select a Cat --</option>
+            {% for cat in cats %}
+                <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+            {% endfor %}
+        </select>
 
         <label>Persons in Household</label>
         <input type="number">
@@ -53,6 +61,20 @@
         <button class="submit-btn">Submit</button>
     </form>
 </div>
+
+<div id="success-message" class="success-message" style="display:none;">
+    <img src="../images/success.png" class="success-img">
+    <h2>Your application has been submitted!</h2>
+</div>
+
+<script>
+document.querySelector(".app-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // doesnte let user reload page (no resubmits)
+    document.getElementById("success-message").style.display = "block";
+    document.querySelector(".app-form").style.display = "none";
+});
+</script>
+
 
 </body>
 </html>

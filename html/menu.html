@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Menu</title>
     <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
 </head>
 <body>
 
@@ -23,8 +25,37 @@
 
 <div class="menu-container">
     <div id="menu-grid" class="menu-grid">
-        <!-- hopefully database can inject here -->
     </div>
 </div>
+
+<script>
+const menuItems = [
+    { name: "Cafe Break", price: 5, img: "../images/cafebreak.jpeg" },
+    { name: "Cafe Dessert", price: 4, img: "../images/cafedessert.jpeg" },
+    { name: "Cafe Sandwich", price: 7, img: "../images/cafesandwich.jpeg" },
+    { name: "Latte", price: 5, img: "../images/latte.jpg" },
+    { name: "Croissant", price: 4, img: "../images/croissant.png" },
+    { name: "Muffin", price: 3, img: "../images/muffin.png" },
+    { name: "Tea", price: 3, img: "../images/tea.png" },
+    { name: "Cake Pop", price: 2, img: "../images/cakepop.png" },
+    { name: "Salad", price: 4, img: "../images/salad.png" }
+];
+
+const container = document.getElementById("menu-grid");
+
+menuItems.forEach(item => {
+    const card = document.createElement("div");
+    card.classList.add("menu-card");
+
+    card.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <h3>${item.name}</h3>
+        <p>$${item.price}</p>
+    `;
+
+    container.appendChild(card);
+});
+</script>
+
 </body>
 </html>
