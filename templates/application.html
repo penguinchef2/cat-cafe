@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Foster Application</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a class="navhover" href="/">HOME</a>
+    <a class="navhover" href="/cats">CATS</a>
+    <a class="navhover" href="/menu">MENU</a>
+    <a class="navhover" href="/register">REGISTER</a>
+    <a class="navhover" href="/application">APPLICATION</a>
+    <a class="navhover" href="/about">ABOUT</a>
+    <a class="navhover" href="/contact">CONTACT</a>
+</nav>
+
+<h1 class="page-title">Foster Application</h1>
+
+<div class="form-container">
+
+    <form class="app-form" method="POST" action="/application">
+
+        <label>Phone Number</label>
+        <input type="text" name="phone">
+
+        <label>Full Name</label>
+        <input type="text" name="full_name">
+
+        <label>Email</label>
+        <input type="email" name="email">
+
+        <label>Street Address</label>
+        <input type="text" name="address">
+
+        <label>What Cat Are You Interested In?</label>
+        <select name="cat_id">
+            <option value="">-- Select a Cat --</option>
+            {% for cat in cats %}
+                <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Persons in Household</label>
+        <input type="number" name="household">
+
+        <label>Number of Other Pets</label>
+        <input type="number" name="pets">
+
+        <label>Own or Rent?</label>
+        <select name="housing">
+            <option value="Own">Own</option>
+            <option value="Rent">Rent</option>
+        </select>
+
+        <button class="submit-btn" type="submit">Submit</button>
+    </form>
+
+</div>
+
+{% if success %}
+<div class="success-message">
+    <img src="{{ url_for('static', filename='images/success.png') }}" class="success-img">
+    <h2>Your application has been submitted!</h2>
+</div>
+{% endif %}
+
+<script>
+document.querySelector(".app-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    const response = await fetch("/application", {
+        method: "POST",
+        body: formData
+    });
+
+    const result = await response.text();
+
+    if (result === "OK") {
+        // "fake new page" effect
+        document.querySelector(".form-container").innerHTML = `
+            <div style="text-align:center; padding:40px;">
+                <img src="/static/images/success.png" style="width:120px;">
+                <h2>Your application has been submitted!</h2>
+                <p>We’ll review it soon 🐱</p>
+                <a href="/application">Submit another</a>
+            </div>
+        `;
+    }
+});
+</script>
+
+</body>
+</html>

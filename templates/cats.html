@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cats - Cat Cafe</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
@@ -14,9 +14,12 @@
     <nav>
         <h1>Cat Cafe</h1>
         <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="cats.html">Cats</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('cats') }}">Cats</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+
         </ul>
     </nav>
 
@@ -29,47 +32,52 @@
     <!-- CAT GRID -->
     <section class="cat-container">
 
+        {% for cat in cats %}
         <div class="cat-card">
-            <h3>Meowther</h3>
-            <img src="../images/meowther.jpg" alt="Meowther">
-            <p>Age: 2</p>
-            <button>Meet Me!</button>
-        </div>
+            <h3>{{ cat[1] }}</h3>
+            <img src="{{ url_for('static', filename='images/' + cat[10]) }}">
+            <p>Age: {{ cat[2] }}</p>
 
-        <div class="cat-card">
+            <a href="/cat/{{ cat[0] }}">
+                <button>Meet Me!</button>
+            </a>
+        </div>
+        {% endfor %}
+
+       <!-- <div class="cat-card">
             <h3>Cathony</h3>
-            <img src="../images/cathony.jpg" alt="Meowther">
+            <img src="{{ url_for('static', filename='images/cathony.jpg') }}" alt="Cathony">
             <p>Age: 1</p>
             <button>Meet Me!</button>
         </div>
 
         <div class="cat-card">
             <h3>Josh Whiskers</h3>
-            <img src="../images/josh whiskers.jpg" alt="Meowther">
+            <img src="{{ url_for('static', filename='images/josh whiskers.jpg') }}" alt="Josh Whiskers">
             <p>Age: 5</p>
             <button>Meet Me!</button>
         </div>
 
         <div class="cat-card">
             <h3>Meowbert</h3>
-            <img src="../images/meowbert.jpg" alt="Meowther">
+            <img src="{{ url_for('static', filename='images/meowbert.jpg') }}" alt="Meowbert">
             <p>Age: 7</p>
             <button>Meet Me!</button>
         </div>
 
         <div class="cat-card">
             <h3>Catherine</h3>
-            <img src="../images/catherine.jpg" alt="Meowther">
+            <img src="{{ url_for('static', filename='images/catherine.jpg') }}" alt="Catherine">
             <p>Age: 3</p>
             <button>Meet Me!</button>
         </div>
 
         <div class="cat-card">
             <h3>Ginger</h3>
-            <img src="../images/ginger.jpg" alt="Meowther">
+            <img src="{{ url_for('static', filename='images/ginger.jpg') }}" alt="Ginger">
             <p>Age: &lt; 1</p>
             <button>Meet Me!</button>
-        </div>
+        </div>  -->
 
     </section>
 
