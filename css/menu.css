@@ -1,0 +1,88 @@
+/* ---------------- GLOBAL ---------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    background-color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+    background-color: #f4c1c1;
+    height: 75px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.navbar a {
+    color: black;
+    text-decoration: none;
+    padding: 25px 55px 35px 55px;
+    font-size: 20px;
+}
+
+.navhover:hover {
+    background-color: #faadad;
+    cursor: pointer;
+}
+
+/* ---------------- PAGE TITLE ---------------- */
+.menu-title {
+    font-size: 70px;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.menu-subtitle {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+/* ---------------- MENU GRID ---------------- */
+.menu-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    gap: 40px;
+}
+
+/* ---------------- MENU CARD ---------------- */
+.menu-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+}
+
+.menu-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.menu-card h3 {
+    font-size: 28px;
+    margin-top: 15px;
+}
+
+.menu-card p {
+    font-size: 22px;
+    margin-top: 5px;
+    color: #444;
+}
