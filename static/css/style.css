@@ -1,55 +1,37 @@
-/* navbar */
-nav {
-    display: flex;
-    font-family: 'Caprasimo';
-    font-weight: 500px;
-    justify-content: space-between;
-    align-items: center;
-
-    background-color: #f4c1c1;
-
-    padding: 20px 40px;   /* makes it BIGGER */
-}
-
-
-/* LINKS CONTAINER */
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 40px;            /* more space between links */
+/* ---------------- GLOBAL ---------------- */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* LINKS */
-nav a {
-    text-decoration: none;
+/* navbar */
+.navbar {
+    background-color: #f4c1c1;
+    height: 75px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.navhover:hover{
+    background:  #faadad;
+    cursor: pointer;
+}
+
+.navbar a {
     color: black;
-    font-weight: bold;
-    font-size: 18px;      /* bigger text */
-}
-
-/* TITLE */
-nav h1 {
-    margin: 0;
-    font-size: 28px;      /* bigger logo text */
+    text-decoration: none;
+    padding: 25px 55px 35px 55px;
+    font-size: 20px;
 }
 
 /* HOME PAGE */
 
-body {
-    font-family: 'Outfit', sans-serif;
-    color: var(--text);
-    /* makes sure footer stays at the bottom */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-
-    position: relative;
-    overflow-x: hidden;
+body{
+    width: 100%
 }
-
-
 
 
 .home {

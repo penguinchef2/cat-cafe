@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>About - Cat Cafe</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/home.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <a
+          class="navhover"
+          style="font-family: Caprasimo, serif; font-size: 20px"
+          href="{{ url_for('home') }}"
+          >Home</a
+        >
+        <a
+          class="navhover"
+          style="font-family: Caprasimo, serif; font-size: 20px"
+          href="{{ url_for('about') }}"
+          >About</a
+        >
+        <a
+          class="navhover"
+          style="font-family: Caprasimo, serif; font-size: 20px"
+          href="{{ url_for('cats') }}"
+          >Cats</a
+        >
+        <a
+          class="navhover"
+          style="font-family: Caprasimo, serif; font-size: 20px"
+          href="{{ url_for('menu') }}"
+          >Menu</a
+        >
+        <a
+          class="navhover"
+          style="font-family: Caprasimo, serif; font-size: 20px"
+          href="{{ url_for('reviews') }}"
+          >Reviews</a
+        >
+      </nav>
+      <section class="title">
+        <h1
+          class="cattitle"
+          style="font-family: Caprasimo, serif; font-weight: bold"
+        >
+          Cat Cafe
+        </h1>
+      </section>
+
+      <section class="samples">
+        <div class="sampletext">
+          <h2
+            class="subtitle"
+            style="font-family: Caprasimo, serif; font-weight: bold"
+          >
+            WHO WE ARE
+          </h2>
+          <p class="sampledesc" style="font-family: Caprasimo, serif">
+            We are a cat cafe that also works to place our cats in loving homes!
+          </p>
+          <a href="{{ url_for('about') }}">
+            <button class="wearebtn" style="font-family: Caprasimo, serif">
+              LEARN MORE
+            </button>
+          </a>
+        </div>
+        <hr />
+      </section>
+
+      <section class="sample">
+        <div class="imageboxes">
+          <img
+            class="cat"
+            src="{{ url_for('static', filename='images/melcattie.jpg') }}"
+          />
+          <img
+            class="cat"
+            src="{{ url_for('static', filename='images/void1.jpg') }}"
+          />
+          <img
+            class="cat"
+            src="{{ url_for('static', filename='images/darling1.jpg') }}"
+          />
+        </div>
+        <div class="sampletext">
+          <h2
+            class="subtitle"
+            style="font-family: Caprasimo, serif; font-weight: bold"
+          >
+            WHAT WE DO
+          </h2>
+          <p class="sampledesc" style="font-family: Caprasimo, serif">
+            We serve delicious food and help our feline friends!
+          </p>
+          <a href="{{ url_for('cats') }}">
+            <button class="wedobtn" style="font-family: Caprasimo, serif">
+              CATS AVAILABLE
+            </button>
+          </a>
+        </div>
+        <hr />
+      </section>
+
+      <section class="sample">
+        <div class="imageboxes">
+          <img
+            class="cat"
+            src="{{ url_for('static', filename='images/cafebreak.jpeg') }}"
+          />
+          <img
+            class="cat"
+            src="{{ url_for('static', filename='images/cafesandwich.jpeg') }}"
+          />
+          <img
+            class="cat"
+            src="{{ url_for('static', filename='images/cafedessert.jpeg') }}"
+          />
+        </div>
+        <div class="sampletext">
+          <h2
+            class="subtitle"
+            style="font-family: Caprasimo, serif; font-weight: bold"
+          >
+            MENU
+          </h2>
+          <p class="sampledesc" style="font-family: Caprasimo, serif">
+            Some of our delicacies!
+          </p>
+          <a href="{{ url_for('menu') }}">
+            <button class="menubtn" style="font-family: Caprasimo, serif">
+              MENU
+            </button>
+          </a>
+        </div>
+      </section>
+      <hr />
+    </main>
+
+    <script src="" async defer></script>
+  </body>
+</html>
