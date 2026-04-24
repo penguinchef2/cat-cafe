@@ -9,16 +9,19 @@
 </head>
 <body>
 
-<nav class="navbar">
-    <a class="navhover" href="home.html">HOME</a>
-    <a class="navhover" href="cats.html">CATS</a>
-    <a class="navhover" href="menu.html">MENU</a>
-    <a class="navhover" href="reviews.html">REVIEWS</a>
-    <a class="navhover" href="register.html">REGISTER</a>
-    <a class="navhover" href="application.html">APPLICATION</a>
-    <a class="navhover" href="about.html">ABOUT</a>
-    <a class="navhover" href="contact.html">CONTACT</a>
-</nav>
+   <nav>
+        <h1 class="logo">Cat Cafe</h1>
+
+        <ul>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('menu') }}">Menu</a></li>
+            <li><a href="{{ url_for('cats') }}">Cats</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="{{ url_for('application') }}">Application</a></li>
+        </ul>
+    </nav>
 
 <h1 class="menu-title">Menu</h1>
 <p class="menu-subtitle">DRINKS / ALL ITEMS</p>

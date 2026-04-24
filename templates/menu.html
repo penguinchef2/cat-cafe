@@ -9,16 +9,19 @@
 </head>
 <body>
 
-<nav class="navbar">
-    <a class="navhover" href="home.html">HOME</a>
-    <a class="navhover" href="cats.html">CATS</a>
-    <a class="navhover" href="menu.html">MENU</a>
-    <a class="navhover" href="reviews.html">REVIEWS</a>
-    <a class="navhover" href="register.html">REGISTER</a>
-    <a class="navhover" href="application.html">APPLICATION</a>
-    <a class="navhover" href="about.html">ABOUT</a>
-    <a class="navhover" href="contact.html">CONTACT</a>
-</nav>
+  <nav>
+        <h1 class="logo">Cat Cafe</h1>
+
+        <ul>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('menu') }}">Menu</a></li>
+            <li><a href="{{ url_for('cats') }}">Cats</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="{{ url_for('application') }}">Application</a></li>
+        </ul>
+    </nav>
 
 <h1 class="menu-title">Menu</h1>
 <p class="menu-subtitle">DRINKS / ALL ITEMS</p>
@@ -30,15 +33,15 @@
 
 <script>
 const menuItems = [
-    { name: "Cafe Break", price: 5, img: "../images/cafebreak.jpeg" },
-    { name: "Cafe Dessert", price: 4, img: "../images/cafedessert.jpeg" },
-    { name: "Cafe Sandwich", price: 7, img: "../images/cafesandwich.jpeg" },
-    { name: "Latte", price: 5, img: "../images/latte.jpg" },
-    { name: "Croissant", price: 4, img: "../images/croissant.png" },
-    { name: "Muffin", price: 3, img: "../images/muffin.png" },
-    { name: "Tea", price: 3, img: "../images/tea.png" },
-    { name: "Cake Pop", price: 2, img: "../images/cakepop.png" },
-    { name: "Salad", price: 4, img: "../images/salad.png" }
+    { name: "Cafe Break", price: 5, img: "static/images/cafebreak.jpeg" },
+    { name: "Cafe Dessert", price: 4, img: "static/images/cafedessert.jpeg" },
+    { name: "Cafe Sandwich", price: 7, img: "static/images/cafesandwich.jpeg" },
+    { name: "Latte", price: 5, img: "static/images/latte.jpg" },
+    { name: "Croissant", price: 4, img: "static/images/croissant.png" },
+    { name: "Muffin", price: 3, img: "static/images/muffin.png" },
+    { name: "Tea", price: 3, img: "static/images/tea.png" },
+    { name: "Cake Pop", price: 2, img: "static/images/cakepop.png" },
+    { name: "Salad", price: 4, img: "static/images/salad.png" }
 ];
 
 const container = document.getElementById("menu-grid");
