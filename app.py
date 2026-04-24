@@ -25,7 +25,12 @@ def about():
 
 @app.route("/cats")
 def cats():
-    return render_template("cats.html")
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM cats")
+    cats_list = cur.fetchall()
+    cur.close()
+
+    return render_template("cats.html", cats=cats_list)
 
 @app.route("/reviews")
 def reviews():
@@ -34,6 +39,15 @@ def reviews():
 @app.route("/menu")
 def menu():
     return render_template("menu.html")
+
+@app.route("/cat/<int:cat_id>")
+def cat_profile(cat_id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM cats WHERE id = %s", (cat_id,))
+    cat = cur.fetchone()
+    cur.close()
+
+    return render_template("profile.html", cat=cat)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)

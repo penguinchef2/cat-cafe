@@ -1,145 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>Cats - Cat Cafe</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com" rel="stylesheet" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
+</head>
+<body>
+
     <!-- NAVBAR -->
-    <nav class="navbar" style="position: relative; width: 100%">
-      <a
-        style="
-          font-size: 28px;
-          position: absolute;
-          left: 0;
-          font-weight: bold;
-          font-family: Caprasimo, serif;
-        "
-        >Cat Cafe</a
-      >
-      <a
-        class="navhover"
-        style="font-family: Caprasimo, serif"
-        href="{{ url_for('home') }}"
-        >Home</a
-      >
-      <a
-        class="navhover"
-        style="font-family: Caprasimo, serif"
-        href="{{ url_for('about') }}"
-        >About</a
-      >
-      <a
-        class="navhover"
-        style="font-family: Caprasimo, serif"
-        href="{{ url_for('cats') }}"
-        >Cats</a
-      >
-      <a
-        class="navhover"
-        style="font-family: Caprasimo, serif"
-        href="{{ url_for('menu') }}"
-        >Menu</a
-      >
-      <a
-        class="navhover"
-        style="font-family: Caprasimo, serif"
-        href="{{ url_for('reviews') }}"
-        >Reviews</a
-      >
+    <nav>
+        <h1>Cat Cafe</h1>
+        <ul>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('cats') }}">Cats</a></li>
+            <li><a href="{{ url_for('reviews') }}">Register</a></li>
+            {# <li><a href="{{ url_for('login') }}">Login</a></li> #}
+        </ul>
     </nav>
 
     <!-- HEADER -->
     <section class="cats-header">
-      <h2>CURRENT CATS</h2>
-      <p>Check out all our cats that need a home!</p>
+        <h2>CURRENT CATS</h2>
+        <p>Check out all our cats that need a home!</p>
     </section>
 
     <!-- CAT GRID -->
     <section class="cat-container">
-      <div class="cat-card">
-        <h3>Meowther</h3>
-        <img
-          src="{{ url_for('static', filename='images/meowther.jpg') }}"
-          alt="Meowther"
-        />
-        <p>Age: 2</p>
-        <button>Meet Me!</button>
-      </div>
 
-      <div class="cat-card">
-        <h3>Cathony</h3>
-        <img
-          src="{{ url_for('static', filename='images/cathony.jpg') }}"
-          alt="Cathony"
-        />
-        <p>Age: 1</p>
-        <button>Meet Me!</button>
-      </div>
+        {% for cat in cats %}
+        <div class="cat-card">
+            <h3>{{ cat[1] }}</h3>
+            <img src="{{ url_for('static', filename='images/' + cat[10]) }}">
+            <p>Age: {{ cat[2] }}</p>
 
-      <div class="cat-card">
-        <h3>Josh Whiskers</h3>
-        <img
-          src="{{ url_for('static', filename='images/josh whiskers.jpg') }}"
-          alt="Josh Whiskers"
-        />
-        <p>Age: 5</p>
-        <button>Meet Me!</button>
-      </div>
+            <a href="/cat/{{ cat[0] }}">
+              <a href="{{ url_for('cat_profile', cat_id=cat[0]) }}">
+                  <button>Meet Me!</button>
+              </a>            
+            </a>
+        </div>
+        {% endfor %}
 
-      <div class="cat-card">
-        <h3>Meowbert</h3>
-        <img
-          src="{{ url_for('static', filename='images/meowbert.jpg') }}"
-          alt="Meowbert"
-        />
-        <p>Age: 7</p>
-        <button>Meet Me!</button>
-      </div>
+       <!-- <div class="cat-card">
+            <h3>Cathony</h3>
+            <img src="{{ url_for('static', filename='images/cathony.jpg') }}" alt="Cathony">
+            <p>Age: 1</p>
+            <button>Meet Me!</button>
+        </div>
 
-      <div class="cat-card">
-        <h3>Catherine</h3>
-        <img
-          src="{{ url_for('static', filename='images/catherine.jpg') }}"
-          alt="Catherine"
-        />
-        <p>Age: 3</p>
-        <button>Meet Me!</button>
-      </div>
+        <div class="cat-card">
+            <h3>Josh Whiskers</h3>
+            <img src="{{ url_for('static', filename='images/josh whiskers.jpg') }}" alt="Josh Whiskers">
+            <p>Age: 5</p>
+            <button>Meet Me!</button>
+        </div>
 
-      <div class="cat-card">
-        <h3>Ginger</h3>
-        <img
-          src="{{ url_for('static', filename='images/ginger.jpg') }}"
-          alt="Ginger"
-        />
-        <p>Age: &lt; 1</p>
-        <button>Meet Me!</button>
-      </div>
+        <div class="cat-card">
+            <h3>Meowbert</h3>
+            <img src="{{ url_for('static', filename='images/meowbert.jpg') }}" alt="Meowbert">
+            <p>Age: 7</p>
+            <button>Meet Me!</button>
+        </div>
+
+        <div class="cat-card">
+            <h3>Catherine</h3>
+            <img src="{{ url_for('static', filename='images/catherine.jpg') }}" alt="Catherine">
+            <p>Age: 3</p>
+            <button>Meet Me!</button>
+        </div>
+
+        <div class="cat-card">
+            <h3>Ginger</h3>
+            <img src="{{ url_for('static', filename='images/ginger.jpg') }}" alt="Ginger">
+            <p>Age: &lt; 1</p>
+            <button>Meet Me!</button>
+        </div>  -->
+
     </section>
 
-    <section class="cats-footer">
-      <p>Now that you've checked out all our cats...</p>
-      <button>Check out our Application!</button>
+    <section class ="cats-footer">
+        <p> Now that you've checked out all our cats...</p>
+        <button> Check out our Application!</button>
     </section>
-  </body>
+
+</body>
 </html>

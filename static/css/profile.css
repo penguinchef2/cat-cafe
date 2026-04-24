@@ -1,0 +1,105 @@
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #f7f7f7;
+}
+
+.navbar{
+    background-color: #f4c1c1;
+    display: flex;
+    justify-content: flex-end;
+    height: 75px;
+
+}
+
+nav a{
+    color:black;
+    text-align: center;
+    padding: 25px 55px 35px 55px;
+    font-family: "Delius", cursive;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+
+/* GRID LAYOUT */
+.profile-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 50px auto;
+    align-items: start;
+}
+
+/* LEFT COLUMN */
+.left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* RIGHT COLUMN STACK */
+.right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* IMAGE */
+.cat-img {
+    width: 100%;
+    border-radius: 20px;
+    border: 6px solid #caa24c;
+}
+
+/* CARD BASE */
+.card {
+    padding: 20px;
+    border-radius: 20px;
+    font-family: 'Caprasimo', serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* SPECIFIC CARDS */
+.intro {
+    background-color: #f4c1c1;
+}
+
+.favorites {
+    background-color: #c9d8a8;
+}
+
+.about {
+    background-color: #d6b3ff;
+}
+
+.adopt {
+    background-color: #ffe08a;
+    text-align: center;
+}
+
+/* TITLES */
+.card h2 {
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+.adopt-btn {
+    margin-top: 10px;
+    padding: 12px 20px;
+    background-color: #ffcc00;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.adopt-btn:hover {
+    background-color: #e6b800;
+}
+
+.adopt-btn.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
