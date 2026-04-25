@@ -23,18 +23,18 @@
                 <h2 class = "logintitle">Register</h2>
             </section>
             <section class = "form">
-                <form>
+                <form id = "formdata">
                     <label for = "name" class = "logintxt">Name</label><br>
-                    <input type = "text" id = "name" class = "box" required placeholder = "Enter your name"><br>
+                    <input type = "text" name = "name" class = "box" required placeholder = "Enter your name"><br>
 
                     <label for = "username" class = "logintxt">Username</label><br>
-                    <input type = "text" id = "username" class = "box" required placeholder = "Enter a username"><br>
+                    <input type = "text" name = "username" class = "box" required placeholder = "Enter a username"><br>
                     
                     <label for = "email" class = "logintxt">Email</label><br>
-                    <input type = "text" id = "email" class = "box"  required placeholder = "Enter your email"><br>
+                    <input type = "text" id = "email" name = "email" class = "box"  required placeholder = "Enter your email"><br>
 
                     <label for = "password" class = "logintxt">Password</label><br>
-                    <input type = "text" id = "password" class = "box"  required placeholder = "Enter your password"><br>
+                    <input type = "text" id = "password" name = "password" class = "box"  required placeholder = "Enter your password"><br>
 
                     <label for = "confirmpassword" class = "logintxt">Confirm Password</label><br>
                     <input type = "text" id = "confirmpassword" class = "box"  required placeholder = "Re-enter your password"><br>
@@ -52,6 +52,33 @@
         </main>
     
         
-        <script src="" async defer></script>
+        <script>
+            const form = document.getElementById("formdata")
+            form.addEventListener("submit", async function(register) {
+                register.preventDefault()
+                
+                var password = document.getElementById("password").value;
+                var passcheck = document.getElementById("confirmpassword").value;
+
+                if (password != passcheck){
+                    alert("Incorrect password entered");
+                    return;
+                }
+
+                let registerData = new FormData(form)
+
+                try{
+                 await fetch ("/register_send", {
+                    method: "POST",
+                    body: registerData
+
+                })
+
+                window.location.href = "/login"
+            } catch(err){
+                alert(err)
+            }
+            })
+        </script>
     </body>
 </html>

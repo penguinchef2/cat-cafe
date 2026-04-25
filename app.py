@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'cat_cafe'
+app.config['MYSQL_DB'] = 'cats'
 app.config['MYSQL_PORT'] = 3306
 
 mysql = MySQL(app)
@@ -103,6 +103,45 @@ def application():
         return "OK"
     cats = get_available_cats()
     return render_template("application.html", cats=cats)
+
+@app.route("/register_send" , methods = ["POST"])
+def register_user():
+    cur = mysql.connection.cursor()
+
+    username = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    name = request.form.get("name")
+
+    cur.execute("""
+            INSERT INTO userinformation
+            (username, emailid, password, name)
+            VALUES (%s,%s,%s,%s)
+        """, (username, email, password, name))
+    
+    mysql.connection.commit()
+    cur.close()
+    return jsonify(message = "succesfully stored")
+
+@app.route("/login_send" , methods = ["POST"])
+def login_user():
+    cur = mysql.connection.cursor()
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    #print (email, password)
+
+    cur.execute("""
+            SELECT * FROM userinformation
+            WHERE emailid = %s and password = %s
+        """, ( email, password,))
+    user =  cur.fetchone()
+    cur.close()
+    if user is None:
+        return jsonify(message = "invalid credentials")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)

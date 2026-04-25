@@ -23,12 +23,12 @@
                 <h2 class = "logintitle">LOGIN</h2>
             </section>
             <section class = "form">
-                <form>
+                <form id = "formdata">
                     <label for = "email" class = "logintxt">Email</label><br>
-                    <input type = "text" id = "email" class = "box"  required placeholder = "Enter your email"><br>
+                    <input type = "text" name = "email" id = "email" class = "box"  required placeholder = "Enter your email"><br>
 
                     <label for = "password" class = "logintxt">Password</label><br>
-                    <input type = "text" id = "password" class = "box"  required placeholder = "Enter your password"><br>
+                    <input type = "text" name = "password" id = "password" class = "box"  required placeholder = "Enter your password"><br>
 
                     <label for = "confirmpassword" class = "logintxt">Confirm Password</label><br>
                     <input type = "text" id = "confirmpassword" class = "box"  required placeholder = "Re-enter your password"><br>
@@ -45,6 +45,43 @@
         </main>
     
         
-        <script src="" async defer></script>
+        <script>
+            const form = document.getElementById("formdata")
+            form.addEventListener("submit", async function(login) {
+                login.preventDefault()
+
+                var password = document.getElementById("password").value;
+                var passcheck = document.getElementById("confirmpassword").value;
+
+                if (password != passcheck){
+                    alert("Re-entered password does not match");
+                    return;
+                }
+
+                const loginInfo =  new FormData(form)
+
+                try{
+                const response = await fetch ("/login_send", {
+                    method: "POST",
+                    body: loginInfo
+
+                })
+
+                const js = await response.json()
+
+            if (js.message){
+                alert("Invalid Credentials")
+                return;
+            }
+            
+            window.location.href = "/"
+            
+        } catch(err){
+            console.log(err)
+        }
+                
+      
+            })
+        </script>
     </body>
 </html>
