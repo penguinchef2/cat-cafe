@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 from flask_mysqldb import MySQL
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+hashing =  Bcrypt(app)
 
 # MySQL config
 app.config['MYSQL_HOST'] = '127.0.0.1'
@@ -113,11 +115,13 @@ def register_user():
     password = request.form.get("password")
     name = request.form.get("name")
 
+    protectPwd = hashing.generate_password_hash(password)
+
     cur.execute("""
             INSERT INTO userinformation
             (username, emailid, password, name)
             VALUES (%s,%s,%s,%s)
-        """, (username, email, password, name))
+        """, (username, email, protectPwd, name))
     
     mysql.connection.commit()
     cur.close()
@@ -133,13 +137,19 @@ def login_user():
     #print (email, password)
 
     cur.execute("""
-            SELECT * FROM userinformation
-            WHERE emailid = %s and password = %s
-        """, ( email, password,))
-    user =  cur.fetchone()
+            SELECT password FROM userinformation
+            WHERE emailid = %s 
+        """, ( email,))
+    tmp =  cur.fetchone()
+    #print (tmp)
+    user = tmp[0]
+    #print(user)
     cur.close()
-    if user is None:
-        return jsonify(message = "invalid credentials")
+    result = hashing.check_password_hash(user, password)
+    if result is False:
+        return jsonify(message = "invalid password")
+    return jsonify(email)
+
 
 
 
