@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Foster Application</title>
+    <link rel="stylesheet" href="../css/application.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
+</head>
+<body>
+
+
+   <nav>
+        <h1 class="logo">Cat Cafe</h1>
+
+        <ul>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('menu') }}">Menu</a></li>
+            <li><a href="{{ url_for('cats') }}">Cats</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="{{ url_for('application') }}">Application</a></li>
+        </ul>
+    </nav>
+
+<h1 class="page-title">Foster Application</h1>
+
+<div class="form-container">
+    <form class="app-form">
+
+        <label>Phone Number</label>
+        <input type="text">
+
+        <label>Full Name</label>
+        <input type="text">
+
+        <label>Email</label>
+        <input type="email">
+
+        <label>Street Address</label>
+        <input type="text">
+
+        <label>What Cat Are You Interested In?</label>
+        <select name="cat_id">
+            <option value="">-- Select a Cat --</option>
+            {% for cat in cats %}
+                <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Persons in Household</label>
+        <input type="number">
+
+        <label>Number of Other Pets</label>
+        <input type="number">
+
+        <label>Own or Rent?</label>
+        <select>
+            <option>Own</option>
+            <option>Rent</option>
+        </select>
+
+        <button class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<div id="success-message" class="success-message" style="display:none;">
+    <img src="../images/success.png" class="success-img">
+    <h2>Your application has been submitted!</h2>
+</div>
+
+<script>
+document.querySelector(".app-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // doesnte let user reload page (no resubmits)
+    document.getElementById("success-message").style.display = "block";
+    document.querySelector(".app-form").style.display = "none";
+});
+</script>
+
+
+</body>
+</html>
