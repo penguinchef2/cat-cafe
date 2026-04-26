@@ -64,98 +64,70 @@
             </ul>
         </div>
     </nav>
-    <!-- REVIEWS BODY -->
-    <h1
-      style="
-        text-align: center;
-        margin-top: 30px;
-        margin-bottom: 15px;
-        font-weight: bold;
-        font-family: Caprasimo, serif;
-        font-size: 48px;
-      "
-    >
-      User Reviews
-    </h1>
-    <div class="subtitle" style="font-size: 28px">
-      See what some customers said about Cat Cafe!<br />
-      All reviews were obtained through anonymous polls from customers.
+<h1 style="text-align:center; margin-top:30px;">User Reviews</h1>
+
+<!--  REVIEW FORM -->
+{% if session.get('user') %}
+<div class="review-form">
+    <h2>Leave a Review</h2>
+
+    <form id="reviewForm">
+        <select name="rating">
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★☆</option>
+            <option value="3">★★★☆☆</option>
+            <option value="2">★★☆☆☆</option>
+            <option value="1">★☆☆☆☆</option>
+        </select>
+
+        <textarea name="review_text" placeholder="Write your review..." required></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% else %}
+<p style="text-align:center;">Login to leave a review</p>
+{% endif %}
+
+<!-- REVIEWS LIST -->
+<div class="reviews-container">
+    {% for r in reviews %}
+    <div class="review-card">
+        <div class="stars">
+            {{ "★" * r[0] }}{{ "☆" * (5 - r[0]) }}
+        </div>
+
+        <div class="date">
+            {{ r[3] }} • {{ r[2].strftime("%m/%d/%Y") }}
+        </div>
+
+        <div class="review-text">
+            {{ r[1] }}
+        </div>
     </div>
+    {% endfor %}
+</div>
 
-    <div class="reviews-container">
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="date">Review Date: 12/15/24</div>
-        <div class="review-text">
-          The atmosphere was absolutely amazing!!! I just moved into town and
-          this is definitely going to be added to the regular coffee spots going
-          forward! Meowbert was such a sweetie!
-        </div>
-      </div>
+<script>
+document.getElementById("reviewForm")?.addEventListener("submit", async function(e){
+    e.preventDefault();
 
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="date">Review Date: 03/21/25</div>
-        <div class="review-text">
-          Cute, Cute, Cute! Cannot believe I haven’t been here yet! The coffee
-          and pastries are top notch and the cat company is absolutely
-          priceless! Will be telling all my friends about this place so we can
-          come as a group!
-        </div>
-      </div>
+    const formData = new FormData(this);
 
-      <div class="review-card">
-        <div class="stars">★★★★☆</div>
-        <div class="date">Review Date: 06/04/25</div>
-        <div class="review-text">
-          Will be coming back again! Had such a nice time playing with the cats
-          and my sister has been looking to adopt for some time. Recommended her
-          this place and she plans on applying!
-        </div>
-      </div>
+    const res = await fetch("/add_review", {
+        method: "POST",
+        body: formData
+    });
 
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="date">Review Date: 07/17/25</div>
-        <div class="review-text">
-          I can’t recommend this place enough! The atmosphere is super calming,
-          the staff are kind, and getting to sip coffee while adorable cats roam
-          around is such a unique experience. 10/10!
-        </div>
-      </div>
+    const data = await res.json();
 
-      <div class="review-card">
-        <div class="stars">★★★★☆</div>
-        <div class="date">Review Date: 04/03/25</div>
-        <div class="review-text">
-          This place made my whole week! Great coffee, comfy seating, and the
-          sweetest cats you’ll ever meet. It’s the perfect mix of café and
-          animal sanctuary.
-        </div>
-      </div>
+    if(data.success){
+        location.reload();
+    } else {
+        alert("Login required");
+    }
+});
+</script>
 
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <div class="date">Review Date: 10/30/25</div>
-        <div class="review-text">
-          Stopped by Cat Cafe today and didn’t want to leave 😭 The pastries
-          were delicious, and every cat had such a cute personality. You can
-          tell they really care about finding them good homes too
-        </div>
-      </div>
-    </div>
-
-    <h1
-      style="
-        text-align: center;
-        margin-top: 50px;
-        margin-bottom: 50px;
-        font-weight: bold;
-        font-family: Caprasimo, serif;
-        font-size: 40px;
-      "
-    >
-      ...& Many More Happy Customers!
-    </h1>
   </body>
 </html>

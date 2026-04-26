@@ -34,14 +34,49 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/reviews")
-def reviews():
-    return render_template("reviews.html")
-
-
 @app.route("/menu")
 def menu():
     return render_template("menu.html")
+
+# ---------------- REVIEWS ---------------- #
+
+
+@app.route("/reviews")
+def reviews():
+    cur = mysql.connection.cursor()
+
+    cur.execute("""
+        SELECT r.rating, r.review_text, r.created_at, u.name
+        FROM reviews r
+        JOIN userinformation u ON r.userid = u.userid
+        ORDER BY r.created_at DESC
+    """)
+
+    reviews = cur.fetchall()
+    cur.close()
+
+    return render_template("reviews.html", reviews=reviews)
+
+@app.route("/add_review", methods=["POST"])
+def add_review():
+    if not session.get("userid"):
+        return jsonify(message="Not logged in")
+
+    cur = mysql.connection.cursor()
+
+    userid = session.get("userid")
+    rating = request.form.get("rating")
+    text = request.form.get("review_text")
+
+    cur.execute("""
+        INSERT INTO reviews (userid, rating, review_text)
+        VALUES (%s, %s, %s)
+    """, (userid, rating, text))
+
+    mysql.connection.commit()
+    cur.close()
+
+    return jsonify(success=True)
 
 
 # ---------------- CATS ---------------- #
@@ -71,52 +106,6 @@ def get_available_cats():
     cur.close()
     return cats
 
-
-# ---------------- LOGIN ---------------- #
-
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-
-@app.route("/login_send", methods=["POST"])
-def login_user():
-    cur = mysql.connection.cursor()
-
-    email = request.form.get("email")
-    password = request.form.get("password")
-
-    cur.execute("""
-        SELECT password, name FROM userinformation
-        WHERE emailid = %s
-    """, (email,))
-
-    user = cur.fetchone()
-    cur.close()
-
-    if not user:
-        return jsonify(message="invalid email")
-
-    hashed_password = user[0]
-    name = user[1]
-
-    if not hashing.check_password_hash(hashed_password, password):
-        return jsonify(message="invalid password")
-
-    # 🔥 FIX: make session reliable
-    session['user'] = name
-    session['email'] = email
-    session['just_logged_in'] = True
-
-    return jsonify(success=True)
-
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect("/")
-
-
 # ---------------- REGISTER ---------------- #
 
 @app.route("/register")
@@ -142,6 +131,47 @@ def register_user():
 
     mysql.connection.commit()
     cur.close()
+
+    return jsonify(success=True)
+
+
+# ---------------- LOGIN ---------------- #
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+@app.route("/login_send", methods=["POST"])
+def login_user():
+    cur = mysql.connection.cursor()
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    cur.execute("""
+        SELECT userid, password, name
+        FROM userinformation
+        WHERE emailid = %s
+    """, (email,))
+
+    user = cur.fetchone()
+    cur.close()
+
+    if not user:
+        return jsonify(message="invalid email")
+
+    userid = user[0]
+    hashed_password = user[1]
+    name = user[2]
+
+    if not hashing.check_password_hash(hashed_password, password):
+        return jsonify(message="invalid password")
+
+    session['user'] = name
+    session['email'] = email
+    session['userid'] = userid
+    session['just_logged_in'] = True
 
     return jsonify(success=True)
 
@@ -208,6 +238,11 @@ def application():
 
     return render_template("application.html", cats=get_available_cats())
 
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
 
 # ---------------- MY APPLICATION ---------------- #
 
