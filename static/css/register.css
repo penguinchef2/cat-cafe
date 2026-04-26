@@ -75,7 +75,6 @@ nav a:hover::after {
     width: 100%;
 }
 
-
 /* TITLE AREA */
 .logintitle {
     font-family: 'Caprasimo', serif;
@@ -163,6 +162,7 @@ nav a:hover::after {
     font-weight: 700;
     cursor: pointer;
     transition: 0.2s ease;
+    width: 120px;
 }
 
 .loginbtn:hover {

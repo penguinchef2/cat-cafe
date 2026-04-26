@@ -109,3 +109,10 @@ nav a.active {
     background: #cdb2ea;
     transform: translateY(-2px);
 }
+
+.logo,
+.logo a {
+    font-size: 28px !important;
+    font-family: 'Caprasimo', serif;
+    font-weight: 700;
+}

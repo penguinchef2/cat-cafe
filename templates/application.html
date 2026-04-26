@@ -5,6 +5,8 @@
     <title>Foster Application</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
+    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
@@ -30,8 +32,16 @@
                         Welcome, {{ session['user'] }} 🐾
                     </li>
                     <li class="dropdown">
-                        <a href="#">Account</a>
+                        <button class="dropbtn">
+                            Account ⌄
+                        </button>
+
                         <div class="dropdown-content">
+                            <div class="dropdown-name">
+                                Welcome, {{ session['user'] }}
+                            </div>
+
+                        <a href="{{ url_for('my_application') }}">My Application</a>
                             <a href="{{ url_for('logout') }}">Logout</a>
                         </div>
                     </li>
@@ -122,9 +132,9 @@ document.querySelector(".app-form").addEventListener("submit", async function(ev
         body: formData
     });
 
-    const result = await response.text();
+    const result = await response.json();
 
-    if (result === "OK") {
+    if (result.success) {
         document.querySelector(".form-container").innerHTML = `
             <div class="success-message">
                 <img src="/static/images/success.png" class="success-img">
@@ -133,6 +143,8 @@ document.querySelector(".app-form").addEventListener("submit", async function(ev
                 <a href="/application" class="btn-back">Submit another</a>
             </div>
         `;
+    } else {
+        alert(result.message || "Something went wrong");
     }
 });
 </script>

@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__)
 app.secret_key = "secretkey123"
 
-hashing = Bcrypt(app)  
+hashing = Bcrypt(app)
 
 # MySQL config
 app.config['MYSQL_HOST'] = '127.0.0.1'
@@ -28,14 +28,23 @@ def home():
 def about():
     return render_template("about.html")
 
+
 @app.route("/contact")
-def contact() : 
+def contact():
     return render_template("contact.html")
 
+
 @app.route("/reviews")
-def reviews() : 
+def reviews():
     return render_template("reviews.html")
 
+
+@app.route("/menu")
+def menu():
+    return render_template("menu.html")
+
+
+# ---------------- CATS ---------------- #
 
 @app.route("/cats")
 def cats():
@@ -55,6 +64,16 @@ def cat_profile(cat_id):
     return render_template("profile.html", cat=cat)
 
 
+def get_available_cats():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT id, name FROM cats WHERE available = TRUE")
+    cats = cur.fetchall()
+    cur.close()
+    return cats
+
+
+# ---------------- LOGIN ---------------- #
+
 @app.route("/login")
 def login():
     return render_template("login.html")
@@ -69,9 +88,9 @@ def login_user():
 
     cur.execute("""
         SELECT password, name FROM userinformation
-        WHERE emailid = %s 
+        WHERE emailid = %s
     """, (email,))
-    
+
     user = cur.fetchone()
     cur.close()
 
@@ -84,7 +103,9 @@ def login_user():
     if not hashing.check_password_hash(hashed_password, password):
         return jsonify(message="invalid password")
 
+    # 🔥 FIX: make session reliable
     session['user'] = name
+    session['email'] = email
     session['just_logged_in'] = True
 
     return jsonify(success=True)
@@ -96,9 +117,12 @@ def logout():
     return redirect("/")
 
 
+# ---------------- REGISTER ---------------- #
+
 @app.route("/register")
 def register():
     return render_template("register.html")
+
 
 @app.route("/register_send", methods=["POST"])
 def register_user():
@@ -108,9 +132,6 @@ def register_user():
     username = request.form.get("username")
     email = request.form.get("email")
     password = request.form.get("password")
-
-    if not name or not email or not password:
-        return jsonify(success=False)
 
     hashed_password = hashing.generate_password_hash(password).decode('utf-8')
 
@@ -125,21 +146,6 @@ def register_user():
     return jsonify(success=True)
 
 
-@app.route("/menu")
-def menu():
-    return render_template("menu.html")
-
-
-# ---------------- HELPERS ---------------- #
-
-def get_available_cats():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT id, name FROM cats WHERE available = TRUE")
-    cats = cur.fetchall()
-    cur.close()
-    return cats
-
-
 # ---------------- APPLICATION ---------------- #
 
 @app.route("/application", methods=["GET", "POST"])
@@ -147,32 +153,92 @@ def application():
     if request.method == "POST":
         cur = mysql.connection.cursor()
 
-        cur.execute("""
-            INSERT INTO applications
-            (full_name, phone, email, address, cat_id, household_size, pets, housing)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
-        """, (
-            request.form['full_name'],
-            request.form['phone'],
-            request.form['email'],
-            request.form['address'],
-            request.form['cat_id'],
-            request.form['household'],
-            request.form['pets'],
-            request.form['housing']
-        ))
+        email = session.get("email")
 
+        if not email:
+            return jsonify(message="Not logged in")
+
+        # always UPDATE or INSERT safely (upsert style)
         cur.execute("""
-            UPDATE cats SET available = FALSE WHERE id = %s
-        """, (request.form['cat_id'],))
+            SELECT id FROM applications WHERE email = %s
+        """, (email,))
+        existing = cur.fetchone()
+
+        if existing:
+            cur.execute("""
+                UPDATE applications
+                SET full_name=%s,
+                    phone=%s,
+                    address=%s,
+                    cat_id=%s,
+                    household_size=%s,
+                    pets=%s,
+                    housing=%s
+                WHERE email=%s
+            """, (
+                request.form['full_name'],
+                request.form['phone'],
+                request.form['address'],
+                request.form['cat_id'],
+                request.form['household'],
+                request.form['pets'],
+                request.form['housing'],
+                email
+            ))
+        else:
+            cur.execute("""
+                INSERT INTO applications
+                (full_name, phone, email, address, cat_id, household_size, pets, housing)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+            """, (
+                request.form['full_name'],
+                request.form['phone'],
+                email,
+                request.form['address'],
+                request.form['cat_id'],
+                request.form['household'],
+                request.form['pets'],
+                request.form['housing']
+            ))
 
         mysql.connection.commit()
         cur.close()
 
-        return "OK"
+        return jsonify(success=True)
 
     return render_template("application.html", cats=get_available_cats())
 
+
+# ---------------- MY APPLICATION ---------------- #
+
+@app.route("/my_application")
+def my_application():
+    if not session.get("user"):
+        return redirect("/login")
+
+    email = session.get("email")
+
+    # debug!
+    if not email:
+        return "Session email missing. Please log in again."
+
+    cur = mysql.connection.cursor()
+
+    cur.execute("""
+        SELECT a.full_name, a.phone, a.email, a.address,
+               c.name, a.household_size, a.pets, a.housing
+        FROM applications a
+        JOIN cats c ON a.cat_id = c.id
+        WHERE a.email = %s
+    """, (email,))
+
+    app_data = cur.fetchone()
+    cur.close()
+
+    return render_template("my_application.html", app=app_data)
+
+
+# ---------------- RUN ---------------- #
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)
