@@ -1,0 +1,218 @@
+/* ---------------- GLOBAL ---------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ---------------- HOME PAGE ---------------- */
+.home {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.home h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.home p {
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+/* BUTTONS */
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 20px;
+    background-color: #d6b3ff;
+    color: black;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #c299ff;
+}
+
+/* ---------------- CATS PAGE ---------------- */
+.cats-header {
+    margin: 40px 10px 0;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+
+.cats-footer {
+    text-align: center;
+    padding: 30px;
+}
+
+.cats-footer button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #d6b3ff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cats-footer button:hover {
+    background-color: #c299ff;
+}
+
+/* ---------------- CAT GRID ---------------- */
+.cat-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 30px;
+}
+
+.cat-card {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.cat-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.cat-card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #ffc800;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cat-card button:hover {
+    background-color: #e0b005;
+}
+
+/* ---------------- ABOUT ---------------- */
+.about-header {
+    margin-left: 10px;
+    font-size: 32px;
+}
+
+.about-row {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.about-label {
+    width: 150px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h3 {
+    color: #777;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.about-image img {
+    width: 90%;
+    max-width: 750px;
+    border-radius: 15px;
+}
+
+/* ---------------- REVIEWS ---------------- */
+.subtitle {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.reviews-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.review-card {
+    background: #E3E3E3;
+    padding: 20px;
+    border-radius: 12px;
+    border: 3px solid #666;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.stars {
+    font-size: 1.2rem;
+    color: #f4b400;
+    margin-bottom: 5px;
+}
+
+.date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.review-text {
+    line-height: 1.5;
+}
+
+.review-form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+}
+
+.review-form textarea {
+    width: 100%;
+    height: 120px;
+    margin-top: 10px;
+}
+
+.review-form button {
+    margin-top: 10px;
+    padding: 10px;
+    background: #d6b3ff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}

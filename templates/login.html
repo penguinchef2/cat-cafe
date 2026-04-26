@@ -1,50 +1,112 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Login</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    </head>
-    <body>
-        <main>
-            <nav class = "navbar">
-                <a class = "navhover" href="{{ url_for('about') }}">About</a>
-                <a class = "navhover">Menu</a>
-                <a class = "navhover" href="{{ url_for('cats') }}">Cats</a>
-                <a class = "navhover">Reviews</a>
-                <a class = "navhover" href="{{ url_for('login') }}">Sign In</a>
-                <a class = "navhover">Contact</a>
-            </nav>
-            <section class = "title">
-                <h1 class = "cattitle">Cat Cafe</h1>
-                <h2 class = "logintitle">LOGIN</h2>
-            </section>
-            <section class = "form">
-                <form>
-                    <label for = "email" class = "logintxt">Email</label><br>
-                    <input type = "text" id = "email" class = "box"  required placeholder = "Enter your email"><br>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
 
-                    <label for = "password" class = "logintxt">Password</label><br>
-                    <input type = "text" id = "password" class = "box"  required placeholder = "Enter your password"><br>
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
 
-                    <label for = "confirmpassword" class = "logintxt">Confirm Password</label><br>
-                    <input type = "text" id = "confirmpassword" class = "box"  required placeholder = "Re-enter your password"><br>
+</head>
 
-                    <button type = "submit" class = "loginbtn">Login</button><br>
-                    <label for = "confirmpassword" class = "registertext">Don't have an account? Register here</label><br>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <h1 class="logo">
+                <a href="{{ url_for('home') }}">Cat Cafe</a>
+            </h1>
 
-                </form>
-            </section>
+            <ul>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('menu') }}">Menu</a></li>
+                <li><a href="{{ url_for('cats') }}">Cats</a></li>
+                <li><a href="{{ url_for('reviews') }}" >Reviews</a></li>
+                <li><a href="{{ url_for('login') }}" class="active">Sign In</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('application') }}">Application</a></li>
 
+                {% if session.get('user') %}
+                    <li class="welcome-user">
+                        Welcome, {{ session['user'] }} 🐾
+                    </li>
+                    <li class="dropdown">
+                    <button class="dropbtn">
+                        Account ⌄
+                    </button>
 
-            
-        </section>
-        </main>
-    
-        
-        <script src="" async defer></script>
-    </body>
+                    <div class="dropdown-content">
+                        <div class="dropdown-name">
+                            Welcome, {{ session['user'] }}
+                        </div>
+
+                        <a href="{{ url_for('my_application') }}">My Application</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <h2 class="logintitle">Welcome Back 🐾</h2>
+    <p class="subtitle">Login to continue your cat journey</p>
+
+    <section class="form">
+
+        <form id="formdata">
+
+            <div class="field">
+                <label>Email</label>
+                <input type="text" id="email" name="email" class="box" placeholder="Enter your email">
+            </div>
+
+            <div class="field">
+                <label>Password</label>
+                <input type="password" id="password" name="password" class="box" placeholder="Enter your password">
+            </div>
+
+            <div class="field">
+                <label>Confirm password</label>
+                <input type="password" id="password" name="password" class="box" placeholder="Confirm password">
+            </div>
+
+            <button class="loginbtn">Login</button>
+
+            <p class="registertext">
+                Don't have an account?
+                <a href="{{ url_for('register') }}">Register here</a>
+            </p>
+
+        </form>
+
+    </section>
+
+    <script>
+        const form = document.getElementById("formdata");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            const res = await fetch("/login_send", {
+                method: "POST",
+                body: formData,
+                credentials: "same-origin"
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                window.location.href = "/";
+            } else {
+                alert(data.message);
+            }
+        });
+    </script>
+
+</body>
 </html>

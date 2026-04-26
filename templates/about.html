@@ -4,64 +4,102 @@
     <meta charset="UTF-8">
     <title> About - Cat Cafe</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
+    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
 
 </head>
-<body>
-
+<body class="about-page">
+    
     <!-- NAVBAR -->
     <nav>
-        <h1>Cat Cafe</h1>
-        <ul>
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-            <li><a href="{{ url_for('cats') }}">Cats</a></li>
-        </ul>
+        <div class="nav-inner">
+            <h1 class="logo">
+                <a href="{{ url_for('home') }}">Cat Cafe</a>
+            </h1>
+
+            <ul>
+                <li><a href="{{ url_for('about') }}" class="active">About</a></li>
+                <li><a href="{{ url_for('menu') }}">Menu</a></li>
+                <li><a href="{{ url_for('cats') }}">Cats</a></li>
+                <li><a href="{{ url_for('reviews') }}" >Reviews</a></li>
+                <li><a href="{{ url_for('login') }}">Sign In</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('application') }}">Application</a></li>
+                 {% if session.get('user') %}
+                <li class="welcome-user">
+                    Welcome, {{ session['user'] }} 🐾
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">
+                        Account ⌄
+                    </button>
+
+                    <div class="dropdown-content">
+                        <div class="dropdown-name">
+                            Welcome, {{ session['user'] }}
+                        </div>
+
+                        <a href="{{ url_for('my_application') }}">My Application</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
 
-<div class="about-header">
-        <h3>ABOUT</h3>
-    </div>
 
-<div class="about-row">
-    <!-- LEFT SIDE LABEL -->
-    <div class="about-label">
-        <p>OUR STORY</p>
-    </div>
-    
-    <!-- RIGHT SIDE CONTENT -->
-    <div class="about-text">
-        <p>A. Thomas, B. Renner, A. Morgan, A. Ajithkumar</p>
-        <h3>Owners</h3>
-        
-        
-        <p class="leading-text">
-            Our café was founded on the love of cats with the desire to build a cozy, welcoming space for both people and animals.
-        </p>
 
-        <p>
-            We partner with local shelters to provide a safe, comfortable environment where cats can relax and meet potential owners.
-        </p>
+    <section class="about-hero">
+        <h1>About Cat Cafe</h1>
+        <p>A cozy place where cats and people find each other.</p>
+    </section>
 
-        <div class="about-image">
-            <img src="{{ url_for('static', filename='images/IMG_1615.jpg') }}" alt="cat image">
+    <div class="about-row">
+
+        <!-- LEFT LABEL -->
+        <div class="about-label">
+            <p>OUR STORY</p>
         </div>
 
-        <p>
-            Every cat here has their own personality and story, and we’re proud to help them find their forever homes!
-        </p>
+        <!-- RIGHT CONTENT -->
+        <div class="about-text">
 
-        <p>
-            From humble beginnings, our café has grown into a favorite local spot known for its cozy atmosphere and friendly, adoptable cats.
-        </p>
+            <h2>Who We Are</h2>
+            <p class="leading-text">
+                A. Thomas, B. Renner, A. Morgan, and A. Ajithkumar
+            </p>
 
-        <button class="member-btn"> · Become a Member</button>
+            <p>
+                Our café was created to be more than just a place to grab a drink — it's a warm, welcoming space where people can relax, connect, and meet adoptable cats.
+            </p>
 
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='images/IMG_1615.jpg') }}" alt="cat image">
+            </div>
+
+            <h2>Our Mission</h2>
+            <p>
+                We partner with local shelters to give cats a safe and comfortable environment while they wait for their forever homes.
+            </p>
+
+            <p>
+                Every cat here has a unique personality, and we strive to match them with the right people through meaningful interactions.
+            </p>
+
+            <h2>Why It Matters</h2>
+            <p>
+                By combining a café experience with adoption opportunities, we help reduce shelter overcrowding while creating a relaxing space for our community.
+            </p>
+
+            <button class="member-btn">Become a Member</button>
+
+        </div>
     </div>
-
-</div>
 
 </body>
 </html>

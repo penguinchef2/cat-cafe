@@ -1,124 +1,147 @@
-*{
-    margin: 0px;
+body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(to bottom, #fff7f7, #ffffff);
+    margin: 0;
 }
 
-main{
-
-    width: 100%;
-
-}
-
-body{
-    width: 100%
-}
-
-.navbar{
+/* NAV */
+nav {
     background-color: #f4c1c1;
+}
+
+/* CENTERED CONTENT */
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;             
     display: flex;
-    justify-content: flex-end;
-    height: 75px;
-
-}
-
-nav a{
-    color:black;
-    text-align: center;
-    padding: 25px 55px 35px 55px;
-    font-family: "Delius", cursive;
-    font-weight: 400;
-    text-decoration: none;
-}
-
-.cattitle{
-    font-family: "Delius", cursive;
-    font-weight: 900;
-    display: flex;
-    justify-content: center;
-    font-size: 90px;
-    margin-top: 40px;
-    margin-bottom:5px;
-
-}
-
-
-.navhover:hover{
-    background:  #faadad;
-    cursor: pointer;
-}
-
-.sampletext{
+    justify-content: space-between;
     align-items: center;
-    display:flex;
-    flex-direction: column;
-   
+    padding: 20px 40px;
 }
 
-.imageboxes{
-    display:flex;
-    justify-content: center;
-    flex-direction: row;
+/* LOGO ONLY */
+.logo {
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.cat{
-    height:600px;
-    width:450px;
-    margin-right: 40px;
-    margin-left:30px;
-    border-radius: 20px;
-    margin-top:70px;
-    margin-bottom:30px;
+.logo a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
 }
 
-.subtitle{
-    margin-top:70px;
-    font-family: "Delius", cursive;
-    font-weight: 200;
+/* NAV LINKS */
+nav ul {
+    display: flex;
+    list-style: none;   
+    gap: 30px;   
 }
 
-.sampledesc{
-    font-family: "Delius", cursive;
-    font-weight: 510;
-    font-size: 30px;
-    margin-top: 35px;
-    margin-bottom: 35px;
-
+nav a {
+    position: relative;  
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
 }
 
-.wearebtn{
-    font-family: "Delius", cursive;
-    height:60px;
-    width: 140px;
-    background-color: #cfe1b9;
-    border-radius:10px;
-    cursor:pointer;
-
+nav a.active {
+    border-bottom: 2px solid black;
+    padding-bottom: 3px;
 }
 
-.wedobtn{
-    font-family: "Delius", cursive;
-  height:60px;
-    width: 140px;
-    background-color: #e0c7f9;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.menubtn{
-    font-family: "Delius", cursive;
-  height:60px;
-    width: 140px;
-    background-color: #FFD700;
-    border-radius:10px;
-    cursor:pointer;
-    
-}
-
-
-hr{
-    margin-top: 50px;
-    height:0.001px;
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
     background-color: black;
-    margin-left:200px;
-    margin-right:200px;
-    opacity: 0.5;
+    transition: 0.3s;
 }
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 90px 20px 40px;
+}
+
+.hero h1 {
+    font-family: 'Caprasimo', serif;
+    font-size: 64px;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+
+/* SECTION CARD */
+.section-card {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 35px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+    text-align: center;
+}
+
+.section-card h2 {
+    font-family: 'Caprasimo', serif;
+    margin-bottom: 10px;
+}
+
+/* IMAGES */
+.section-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 25px auto 60px;
+}
+
+.section-images img {
+    width: 280px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: 0.2s ease;
+}
+
+.section-images img:hover {
+    transform: translateY(-6px);
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    transition: 0.2s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.pink { background: #f4c1c1; }
+.green { background: #cfe1b9; }
+.yellow { background: #ffe08a; }

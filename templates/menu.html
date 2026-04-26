@@ -4,23 +4,49 @@
     <meta charset="UTF-8">
     <title>Menu</title>
     <link rel="stylesheet" href="../static/css/menu.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
+    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
 </head>
 <body>
+    <nav>
+        <div class="nav-inner">
+            <h1 class="logo">
+                <a href="{{ url_for('home') }}">Cat Cafe</a>
+            </h1>
 
-  <nav>
-        <h1 class="logo">Cat Cafe</h1>
+            <ul>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('menu') }}" class="active">Menu</a></li>
+                <li><a href="{{ url_for('cats') }}">Cats</a></li>
+                <li><a href="{{ url_for('reviews') }}" >Reviews</a></li>
+                <li><a href="{{ url_for('login') }}">Sign In</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('application') }}">Application</a></li>
+                {% if session.get('user') %}
+                        <li class="welcome-user">
+                            Welcome, {{ session['user'] }} 🐾
+                        </li>
+                        <li class="dropdown">
+                            <button class="dropbtn">
+                                Account ⌄
+                            </button>
 
-        <ul>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-            <li><a href="{{ url_for('menu') }}">Menu</a></li>
-            <li><a href="{{ url_for('cats') }}">Cats</a></li>
-            <li><a href="#">Reviews</a></li>
-            <li><a href="{{ url_for('login') }}">Sign In</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="{{ url_for('application') }}">Application</a></li>
-        </ul>
+                            <div class="dropdown-content">
+                                <div class="dropdown-name">
+                                    Welcome, {{ session['user'] }}
+                                </div>
+
+                        <a href="{{ url_for('my_application') }}">My Application</a>
+                                <a href="{{ url_for('logout') }}">Logout</a>
+                            </div>
+                        </li>
+                    {% endif %}
+            </ul>
+        </div>
     </nav>
 
 <h1 class="menu-title">Menu</h1>
