@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2026 at 10:29 PM
--- Server version: 9.6.0
--- PHP Version: 8.2.4
+-- Generation Time: Apr 24, 2026 at 10:12 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cat_cafe`
+-- Database: `cats`
 --
 
 -- --------------------------------------------------------
@@ -28,16 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `applications` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `full_name` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `address` text,
-  `cat_id` int DEFAULT NULL,
-  `household_size` int DEFAULT NULL,
-  `pets` int DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `cat_id` int(11) DEFAULT NULL,
+  `household_size` int(11) DEFAULT NULL,
+  `pets` int(11) DEFAULT NULL,
   `housing` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -46,19 +46,19 @@ CREATE TABLE `applications` (
 --
 
 CREATE TABLE `cats` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
-  `age` int DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
   `breed` varchar(100) DEFAULT NULL,
-  `info` text,
-  `personality` text,
-  `likes` text,
-  `dislikes` text,
-  `fun_facts` text,
+  `info` text DEFAULT NULL,
+  `personality` text DEFAULT NULL,
+  `likes` text DEFAULT NULL,
+  `dislikes` text DEFAULT NULL,
+  `fun_facts` text DEFAULT NULL,
   `favorite_toy` varchar(100) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `available` tinyint(1) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `available` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cats`
@@ -71,6 +71,20 @@ INSERT INTO `cats` (`id`, `name`, `age`, `breed`, `info`, `personality`, `likes`
 (4, 'Medo Bektic', 6, 'Domestic Shorthair', 'A shy but sweet cat with a playful, silly side.', 'Shy, silly, and sweet', 'Dehydrated marshmallows, treats', 'The vet', 'Won a calendar contest and is Mr. October', 'Butterfly wand, baguette plushie, hedgehog squeaky toy', 'melcattie.jpg', 1),
 (5, 'Catherine', 3, 'Bombay', 'A vocal and social cat who loves interacting with people.', 'Talkative, friendly', 'Attention, conversation', 'Being ignored', 'Will meow back if you talk to her', 'Bell ball', 'catherine.jpg', 1),
 (6, 'Ginger', 0, 'Domestic Shorthair', 'A tiny kitten full of curiosity and mischief.', 'Curious, playful', 'Exploring, climbing', 'Closed doors', 'Tries to fight objects bigger than her', 'Crinkle toy', 'ginger.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userinformation`
+--
+
+CREATE TABLE `userinformation` (
+  `userid` int(11) NOT NULL,
+  `emailid` varchar(55) DEFAULT NULL,
+  `username` varchar(40) DEFAULT NULL,
+  `password` varchar(70) DEFAULT NULL,
+  `name` varchar(70) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -89,6 +103,12 @@ ALTER TABLE `cats`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `userinformation`
+--
+ALTER TABLE `userinformation`
+  ADD PRIMARY KEY (`userid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -96,13 +116,19 @@ ALTER TABLE `cats`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cats`
 --
 ALTER TABLE `cats`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `userinformation`
+--
+ALTER TABLE `userinformation`
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
