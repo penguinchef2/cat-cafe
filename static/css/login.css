@@ -163,6 +163,7 @@ nav a:hover::after {
     cursor: pointer;
     transition: 0.2s ease;
     width: 120px;
+    margin-left : 135px;
 }
 
 .loginbtn:hover {

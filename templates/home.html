@@ -17,7 +17,8 @@
             <h1 class="logo">
                 <a href="{{ url_for('home') }}">Cat Cafe</a>
             </h1>
-
+            
+            
             <ul>
                 <li><a href="{{ url_for('about') }}">About</a></li>
                 <li><a href="{{ url_for('menu') }}">Menu</a></li>
@@ -27,42 +28,43 @@
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
                 <li><a href="{{ url_for('application') }}">Application</a></li>
                 {% if session.get('user') %}
-                        <li class="welcome-user">
-                            Welcome, {{ session['user'] }} 🐾
-                        </li>
-                        <li class="dropdown">
-                            <button class="dropbtn">
-                                Account ⌄
-                            </button>
-
-                            <div class="dropdown-content">
-                                <div class="dropdown-name">
-                                    Welcome, {{ session['user'] }}
-                                </div>
-
+                <li class="welcome-user">
+                    Welcome, {{ session['user'] }} 🐾
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">
+                        Account ⌄
+                    </button>
+                    
+                    <div class="dropdown-content">
+                        <div class="dropdown-name">
+                            Welcome, {{ session['user'] }}
+                        </div>
+                        
                         <a href="{{ url_for('my_application') }}">My Application</a>
-                                <a href="{{ url_for('logout') }}">Logout</a>
-                            </div>
-                        </li>
-                    {% endif %}
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
-
-<header class="hero">
-    <h1>Cat Cafe</h1>
-    <p>cozy coffee • cute cats • forever homes 🐾</p>
-</header>
-
-<section class="section-card">
-    <h2>Who We Are</h2>
-    <p>We are a cat cafe that also works to place our cats in loving homes.</p>
-    <a href="{{ url_for('about') }}" class="btn pink">Learn More</a>
-</section>
-
-<section class="section-images">
-    <img src="{{ url_for('static', filename='images/melcattie.jpg') }}">
-    <img src="{{ url_for('static', filename='images/void1.jpg') }}">
+    
+    <header class="hero">
+        <h1>Cat Cafe</h1>
+        <p>cozy coffee • cute cats • forever homes 🐾</p>
+    </header>
+    <img src="{{ url_for('static', filename='images/success.png') }}" class="success-img">
+    
+    <section class="section-card">
+        <h2>Who We Are</h2>
+        <p>We are a cat cafe that also works to place our cats in loving homes.</p>
+        <a href="{{ url_for('about') }}" class="btn pink">Learn More</a>
+    </section>
+    
+    <section class="section-images">
+        <img src="{{ url_for('static', filename='images/melcattie.jpg') }}">
+        <img src="{{ url_for('static', filename='images/void1.jpg') }}">
     <img src="{{ url_for('static', filename='images/darling1.jpg') }}">
 </section>
 

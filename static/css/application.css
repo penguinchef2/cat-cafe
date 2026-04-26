@@ -103,7 +103,7 @@ nav a:hover::after {
     gap: 22px;
 }
 
-/* EACH FIELD BLOCK (THIS is what fixes your issue) */
+/* EACH FIELD BLOCK */
 .field {
     display: flex;
     flex-direction: column;

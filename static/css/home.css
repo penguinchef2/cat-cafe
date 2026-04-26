@@ -88,6 +88,8 @@ nav a:hover::after {
 }
 
 
+
+
 /* SECTION CARD */
 .section-card {
     max-width: 900px;
@@ -145,3 +147,17 @@ nav a:hover::after {
 .pink { background: #f4c1c1; }
 .green { background: #cfe1b9; }
 .yellow { background: #ffe08a; }
+
+
+.success-img {
+    width: 180px;
+    display: block;          
+    margin: 20px auto;       
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}

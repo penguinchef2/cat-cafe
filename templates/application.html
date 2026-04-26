@@ -23,29 +23,28 @@
             <li><a href="{{ url_for('about') }}">About</a></li>
             <li><a href="{{ url_for('menu') }}">Menu</a></li>
             <li><a href="{{ url_for('cats') }}">Cats</a></li>
-            <li><a href="{{ url_for('reviews') }}" >Reviews</a></li>
+            <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
             <li><a href="{{ url_for('login') }}">Sign In</a></li>
             <li><a href="{{ url_for('contact') }}">Contact</a></li>
             <li><a href="{{ url_for('application') }}" class="active">Application</a></li>
-            {% if session.get('user') %}
-                    <li class="welcome-user">
-                        Welcome, {{ session['user'] }} 🐾
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropbtn">
-                            Account ⌄
-                        </button>
 
-                        <div class="dropdown-content">
-                            <div class="dropdown-name">
-                                Welcome, {{ session['user'] }}
-                            </div>
+            {% if session.get('user') %}
+                <li class="welcome-user">
+                    Welcome, {{ session['user'] }} 🐾
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">Account ⌄</button>
+
+                    <div class="dropdown-content">
+                        <div class="dropdown-name">
+                            Welcome, {{ session['user'] }}
+                        </div>
 
                         <a href="{{ url_for('my_application') }}">My Application</a>
-                            <a href="{{ url_for('logout') }}">Logout</a>
-                        </div>
-                    </li>
-                {% endif %}
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
@@ -54,6 +53,23 @@
     <h1 class="page-title">Foster Application</h1>
     <p class="page-subtitle">help a cat find a forever home 🐾</p>
 </header>
+
+{# ---------------- BLOCK IF USER ALREADY APPLIED ---------------- #}
+{% if already_applied %}
+
+<div class="form-container">
+    <div class="success-message">
+        <h2>🐾 You already submitted an application!</h2>
+        <p>Status: <b>{{ existing_status }}</b></p>
+        <p>You can only apply for one cat at a time.</p>
+
+        <a href="{{ url_for('my_application') }}" class="btn-back">
+            View My Application
+        </a>
+    </div>
+</div>
+
+{% else %}
 
 <div class="form-container">
 
@@ -66,12 +82,14 @@
 
         <div class="field">
             <label>Full Name</label>
-            <input type="text" name="full_name">
+            <input type="text" name="full_name"
+                value="{{ user[0] if user else '' }}">
         </div>
 
         <div class="field">
             <label>Email</label>
-            <input type="email" name="email">
+            <input type="email" name="email"
+                value="{{ user[1] if user else '' }}" readonly>
         </div>
 
         <div class="field">
@@ -113,16 +131,10 @@
 
 </div>
 
-{% if success %}
-<div class="success-message">
-    <img src="{{ url_for('static', filename='images/success.png') }}" class="success-img">
-    <h2>Your application has been submitted!</h2>
-    <p>We’ll review it soon 🐱</p>
-</div>
 {% endif %}
 
 <script>
-document.querySelector(".app-form").addEventListener("submit", async function(event) {
+document.querySelector(".app-form")?.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const formData = new FormData(this);

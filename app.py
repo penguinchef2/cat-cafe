@@ -38,8 +38,8 @@ def contact():
 def menu():
     return render_template("menu.html")
 
-# ---------------- REVIEWS ---------------- #
 
+# ---------------- REVIEWS ---------------- #
 
 @app.route("/reviews")
 def reviews():
@@ -57,6 +57,7 @@ def reviews():
 
     return render_template("reviews.html", reviews=reviews)
 
+
 @app.route("/add_review", methods=["POST"])
 def add_review():
     if not session.get("userid"):
@@ -64,14 +65,14 @@ def add_review():
 
     cur = mysql.connection.cursor()
 
-    userid = session.get("userid")
-    rating = request.form.get("rating")
-    text = request.form.get("review_text")
-
     cur.execute("""
         INSERT INTO reviews (userid, rating, review_text)
         VALUES (%s, %s, %s)
-    """, (userid, rating, text))
+    """, (
+        session["userid"],
+        request.form.get("rating"),
+        request.form.get("review_text")
+    ))
 
     mysql.connection.commit()
     cur.close()
@@ -101,10 +102,18 @@ def cat_profile(cat_id):
 
 def get_available_cats():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT id, name FROM cats WHERE available = TRUE")
+
+    cur.execute("""
+        SELECT id, name FROM cats
+        WHERE id NOT IN (
+            SELECT cat_id FROM applications WHERE status = 'approved'
+        )
+    """)
+
     cats = cur.fetchall()
     cur.close()
     return cats
+
 
 # ---------------- REGISTER ---------------- #
 
@@ -117,17 +126,19 @@ def register():
 def register_user():
     cur = mysql.connection.cursor()
 
-    name = request.form.get("name")
-    username = request.form.get("username")
-    email = request.form.get("email")
-    password = request.form.get("password")
-
-    hashed_password = hashing.generate_password_hash(password).decode('utf-8')
+    hashed_password = hashing.generate_password_hash(
+        request.form.get("password")
+    ).decode('utf-8')
 
     cur.execute("""
         INSERT INTO userinformation (emailid, username, password, name)
         VALUES (%s, %s, %s, %s)
-    """, (email, username, hashed_password, name))
+    """, (
+        request.form.get("email"),
+        request.form.get("username"),
+        hashed_password,
+        request.form.get("name")
+    ))
 
     mysql.connection.commit()
     cur.close()
@@ -146,14 +157,11 @@ def login():
 def login_user():
     cur = mysql.connection.cursor()
 
-    email = request.form.get("email")
-    password = request.form.get("password")
-
     cur.execute("""
         SELECT userid, password, name
         FROM userinformation
         WHERE emailid = %s
-    """, (email,))
+    """, (request.form.get("email"),))
 
     user = cur.fetchone()
     cur.close()
@@ -161,88 +169,128 @@ def login_user():
     if not user:
         return jsonify(message="invalid email")
 
-    userid = user[0]
-    hashed_password = user[1]
-    name = user[2]
+    userid, hashed_password, name = user
 
-    if not hashing.check_password_hash(hashed_password, password):
+    if not hashing.check_password_hash(hashed_password, request.form.get("password")):
         return jsonify(message="invalid password")
 
     session['user'] = name
-    session['email'] = email
+    session['email'] = request.form.get("email")
     session['userid'] = userid
     session['just_logged_in'] = True
 
     return jsonify(success=True)
 
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
+
+
 # ---------------- APPLICATION ---------------- #
 
 @app.route("/application", methods=["GET", "POST"])
 def application():
+    if not session.get("userid"):
+        return redirect("/login")
+
+    cur = mysql.connection.cursor()
+
+    # get selected cat from URL
+    selected_cat = request.args.get("cat_id")
+
+    # check if existing application
+    cur.execute("""
+        SELECT id, status FROM applications
+        WHERE email = %s
+    """, (session["email"],))
+
+    existing_app = cur.fetchone()
+
+    # ---------------- POST ---------------- #
     if request.method == "POST":
-        cur = mysql.connection.cursor()
 
-        email = session.get("email")
+        if existing_app:
+            cur.close()
+            return jsonify({
+                "success": False,
+                "message": f"You already have a {existing_app[1]} application 🐾"
+            })
 
-        if not email:
-            return jsonify(message="Not logged in")
+        cat_id = request.form.get("cat_id")
 
-        # always UPDATE or INSERT safely (upsert style)
         cur.execute("""
-            SELECT id FROM applications WHERE email = %s
-        """, (email,))
-        existing = cur.fetchone()
+            SELECT id FROM applications
+            WHERE cat_id = %s AND status = 'approved'
+        """, (cat_id,))
+        taken = cur.fetchone()
 
-        if existing:
-            cur.execute("""
-                UPDATE applications
-                SET full_name=%s,
-                    phone=%s,
-                    address=%s,
-                    cat_id=%s,
-                    household_size=%s,
-                    pets=%s,
-                    housing=%s
-                WHERE email=%s
-            """, (
-                request.form['full_name'],
-                request.form['phone'],
-                request.form['address'],
-                request.form['cat_id'],
-                request.form['household'],
-                request.form['pets'],
-                request.form['housing'],
-                email
-            ))
-        else:
-            cur.execute("""
-                INSERT INTO applications
-                (full_name, phone, email, address, cat_id, household_size, pets, housing)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
-            """, (
-                request.form['full_name'],
-                request.form['phone'],
-                email,
-                request.form['address'],
-                request.form['cat_id'],
-                request.form['household'],
-                request.form['pets'],
-                request.form['housing']
-            ))
+        if taken:
+            cur.close()
+            return jsonify({
+                "success": False,
+                "message": "This cat has already been adopted!"
+            })
+
+        cur.execute("""
+            INSERT INTO applications
+            (full_name, phone, email, address, cat_id, household_size, pets, housing, status)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,'pending')
+        """, (
+            request.form['full_name'],
+            request.form['phone'],
+            session["email"],
+            request.form['address'],
+            cat_id,
+            request.form['household'],
+            request.form['pets'],
+            request.form['housing']
+        ))
 
         mysql.connection.commit()
         cur.close()
 
         return jsonify(success=True)
 
-    return render_template("application.html", cats=get_available_cats())
+    # ---------------- AUTOFILL ---------------- #
+
+    cur.execute("""
+        SELECT name, emailid
+        FROM userinformation
+        WHERE userid = %s
+    """, (session["userid"],))
+
+    user = cur.fetchone()
+    cur.close()
+
+    return render_template(
+        "application.html",
+        cats=get_available_cats(),
+        user=user,
+        already_applied=existing_app is not None,
+        existing_status=existing_app[1] if existing_app else None,
+        selected_cat=selected_cat   # 👈 NEW
+    )
 
 
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect("/")
+# ---------------- APPROVE ---------------- #
+
+@app.route("/approve/<int:app_id>")
+def approve(app_id):
+    cur = mysql.connection.cursor()
+
+    cur.execute("""
+        UPDATE applications
+        SET status = 'approved'
+        WHERE id = %s
+    """, (app_id,))
+
+    mysql.connection.commit()
+    cur.close()
+
+    return "Application approved!"
+
 
 # ---------------- MY APPLICATION ---------------- #
 
@@ -251,21 +299,15 @@ def my_application():
     if not session.get("user"):
         return redirect("/login")
 
-    email = session.get("email")
-
-    # debug!
-    if not email:
-        return "Session email missing. Please log in again."
-
     cur = mysql.connection.cursor()
 
     cur.execute("""
         SELECT a.full_name, a.phone, a.email, a.address,
-               c.name, a.household_size, a.pets, a.housing
+               c.name, a.household_size, a.pets, a.housing, a.status
         FROM applications a
         JOIN cats c ON a.cat_id = c.id
         WHERE a.email = %s
-    """, (email,))
+    """, (session.get("email"),))
 
     app_data = cur.fetchone()
     cur.close()

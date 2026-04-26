@@ -90,10 +90,13 @@
             <p>Click below to apply!</p>
 
             {% if cat[11] %}
-                <button class="adopt-btn">Apply to Adopt Me!</button>
+                <a href="{{ url_for('application') }}?cat_id={{ cat[0] }}">
+                    <button class="adopt-btn">Apply to Adopt Me!</button>
+                </a>
             {% else %}
-                <button class="adopt-btn disabled">Not Available</button>
+                <button class="adopt-btn disabled">Already Adopted 🐾</button>
             {% endif %}
+            
         </div>
 
     </div>
@@ -108,7 +111,9 @@ const lines = [
     "can i sit on your laptop?",
     "pspsps... adopt me?",
     "i will be your emotional support cat",
-    "i knocked something off the table btw"
+    "i knocked something off the table btw",
+    "yk you want me bruh",
+    "ADDDOOPPT ME ALRDYYY!!!"
 ];
 
 const bubble = document.getElementById("speechBubble");
