@@ -1,139 +1,159 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Cat Profile</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
-    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/profile.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/dropdown.css') }}"
+    />
+    <script
+      defer
+      src="{{ url_for('static', filename='js/dropdown.js') }}"
+    ></script>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
-</head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/navbar.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <nav>
-        <div class="nav-inner">
-            <h1 class="logo">
-                <a href="{{ url_for('home') }}">Cat Cafe</a>
-            </h1>
+      <div class="nav-inner">
+        <h1 class="logo">
+          <a href="{{ url_for('home') }}">Cat Cafe</a>
+        </h1>
 
-<ul>
-    <li><a href="{{ url_for('about') }}">About</a></li>
-    <li><a href="{{ url_for('menu') }}">Menu</a></li>
-    <li><a href="{{ url_for('cats') }}">Cats</a></li>
-    <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
-    <li><a href="{{ url_for('contact') }}">Contact</a></li>
-    <li><a href="{{ url_for('application') }}">Application</a></li>
+        <ul>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('menu') }}">Menu</a></li>
+          <li><a href="{{ url_for('cats') }}">Cats</a></li>
+          <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+          <li><a href="{{ url_for('application') }}">Application</a></li>
 
-    {% if session.get('user') %}
+          {% if session.get('user') %}
 
-        <li class="welcome-user">
-            Welcome, {{ session['user'] }} 🐾
-        </li>
+          <li class="welcome-user">Welcome, {{ session['user'] }} 🐾</li>
 
-        <li class="dropdown">
-            <button class="dropbtn">
-                Account ⌄
-            </button>
+          <li class="dropdown">
+            <button class="dropbtn">Account ⌄</button>
 
             <div class="dropdown-content">
-                <div class="dropdown-name">
-                    Signed in as {{ session['user'] }}
-                </div>
+              <div class="dropdown-name">
+                Signed in as {{ session['user'] }}
+              </div>
 
-                <a href="{{ url_for('my_application') }}">My Application</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
+              <a href="{{ url_for('my_application') }}">My Application</a>
+              <a href="{{ url_for('logout') }}">Logout</a>
             </div>
-        </li>
+          </li>
 
-    {% else %}
+          {% else %}
 
-        <li><a href="{{ url_for('login') }}">Sign In</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
+          <li><a href="{{ url_for('login') }}">Sign In</a></li>
+          <li><a href="{{ url_for('register') }}">Register</a></li>
 
-    {% endif %}
-</ul>
-        </div>
+          {% endif %}
+        </ul>
+      </div>
     </nav>
-<a href="{{ url_for('cats') }}" class="back-btn">← Back to Cats</a>
+    <a href="{{ url_for('cats') }}" class="back-btn">← Back to Cats</a>
 
-<div class="profile-wrapper">
-
-    <div class="left-col">
-
+    <div class="profile-wrapper">
+      <div class="left-col">
         <div class="image-wrapper">
-            <img class="cat-img" src="{{ url_for('static', filename='images/' + cat[10]) }}">
+          <img
+            class="cat-img"
+            src="{{ url_for('static', filename='images/' + cat[10]) }}"
+          />
 
-            <div class="name-badge">{{ cat[1] }}</div>
+          <div class="name-badge">{{ cat[1] }}</div>
 
-            <div class="speech-bubble" id="speechBubble"></div>
+          <div class="speech-bubble" id="speechBubble"></div>
         </div>
 
         <div class="card intro">
-            <p>Hi there! My name is {{ cat[1] }} and I am a {{ cat[3] }}. {{ cat[4] }}</p>
+          <p>
+            Hi there! My name is {{ cat[1] }} and I am a {{ cat[3] }}. {{ cat[4]
+            }}
+          </p>
+        </div>
+      </div>
+
+      <div class="personality-stack">
+        <div class="card favorites">
+          <h2>Personality</h2>
+          <p><strong>People often describe me as:</strong> {{ cat[5] }}</p>
         </div>
 
-    </div>
+        <div class="card favorites">
+          <h2>Favorites</h2>
+          <p><strong>Toy:</strong> {{ cat[9] }}</p>
+          <p><strong>Likes:</strong> {{ cat[6] }}</p>
+        </div>
 
-    <div class="card favorites">
-        <h2>Favorites</h2>
-        <p><strong>Toy:</strong> {{ cat[9] }}</p>
-        <p><strong>Likes:</strong> {{ cat[6] }}</p>
-    </div>
+        <div class="card favorites">
+          <h2>Dislikes</h2>
+          <p><strong>I don't like:</strong> {{ cat[7] }}</p>
+        </div>
+      </div>
 
-    <div class="right-col">
-
+      <div class="right-col">
         <div class="card about">
-            <h2>Fun Facts</h2>
-            <p>{{ cat[8] }}</p>
+          <h2>Fun Facts</h2>
+          <p>{{ cat[8] }}</p>
         </div>
 
         <div class="paw-divider">🐾 ⋆ 🐾 ⋆ 🐾</div>
 
         <div class="card adopt">
-            <h2>Adopt Me!</h2>
-            <p>Click below to apply!</p>
+          <h2>Adopt Me!</h2>
+          <p>Click below to apply!</p>
 
-            {% if cat[11] %}
-                <a href="{{ url_for('application') }}?cat_id={{ cat[0] }}">
-                    <button class="adopt-btn">Apply to Adopt Me!</button>
-                </a>
-            {% else %}
-                <button class="adopt-btn disabled">Already Adopted 🐾</button>
-            {% endif %}
-            
+          {% if cat[11] %}
+          <a href="{{ url_for('application') }}?cat_id={{ cat[0] }}">
+            <button class="adopt-btn">Apply to Adopt Me!</button>
+          </a>
+          {% else %}
+          <button class="adopt-btn disabled">Already Adopted 🐾</button>
+          {% endif %}
         </div>
-
+      </div>
     </div>
 
-</div>
+    <script>
+      const lines = [
+        "meow... pick me 🐾",
+        "i promise i'm cute irl",
+        "i just want snacks and love",
+        "can i sit on your laptop?",
+        "pspsps... adopt me?",
+        "i will be your emotional support cat",
+        "i knocked something off the table btw",
+        "yk you want me bruh",
+        "ADDDOOPPT ME ALRDYYY!!!",
+      ];
 
-<script>
-const lines = [
-    "meow... pick me 🐾",
-    "i promise i'm cute irl",
-    "i just want snacks and love",
-    "can i sit on your laptop?",
-    "pspsps... adopt me?",
-    "i will be your emotional support cat",
-    "i knocked something off the table btw",
-    "yk you want me bruh",
-    "ADDDOOPPT ME ALRDYYY!!!"
-];
+      const bubble = document.getElementById("speechBubble");
 
-const bubble = document.getElementById("speechBubble");
+      function changeLine() {
+        const randomIndex = Math.floor(Math.random() * lines.length);
+        bubble.innerText = lines[randomIndex];
+      }
 
-function changeLine() {
-    const randomIndex = Math.floor(Math.random() * lines.length);
-    bubble.innerText = lines[randomIndex];
-}
-
-changeLine();
-setInterval(changeLine, 3500);
-</script>
-
-</body>
+      changeLine();
+      setInterval(changeLine, 3500);
+    </script>
+  </body>
 </html>

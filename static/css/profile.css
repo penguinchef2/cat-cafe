@@ -88,6 +88,29 @@ nav a:hover::after {
     align-items: stretch;
 }
 
+/* container that stacks the cards vertically */
+.personality-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;           /* vertical spacing between cards */
+  width: 100%;
+  align-items: stretch;
+}
+
+/* ensure each card fills the available width */
+.personality-stack .card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* optional: make cards slightly narrower on very wide screens */
+@media (min-width: 1200px) {
+  .personality-stack {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
 .left-col,
 .right-col {
     display: flex;
