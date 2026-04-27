@@ -391,52 +391,5 @@ def my_application():
 
 # ---------------- RUN ---------------- #
 
-@app.route("/register_send" , methods = ["POST"])
-def register_user():
-    cur = mysql.connection.cursor()
-
-    username = request.form.get("username")
-    email = request.form.get("email")
-    password = request.form.get("password")
-    name = request.form.get("name")
-
-    protectPwd = hashing.generate_password_hash(password)
-
-    cur.execute("""
-            INSERT INTO userinformation
-            (username, emailid, password, name)
-            VALUES (%s,%s,%s,%s)
-        """, (username, email, protectPwd, name))
-    
-    mysql.connection.commit()
-    cur.close()
-    return jsonify(message = "succesfully stored")
-
-@app.route("/login_send" , methods = ["POST"])
-def login_user():
-    cur = mysql.connection.cursor()
-
-    email = request.form.get("email")
-    password = request.form.get("password")
-
-    #print (email, password)
-
-    cur.execute("""
-            SELECT password FROM userinformation
-            WHERE emailid = %s 
-        """, ( email,))
-    tmp =  cur.fetchone()
-    #print (tmp)
-    user = tmp[0]
-    #print(user)
-    cur.close()
-    result = hashing.check_password_hash(user, password)
-    if result is False:
-        return jsonify(message = "invalid password")
-    return jsonify(email)
-
-
-
-
 if __name__ == "__main__":
     app.run(debug=True, port=5050)
