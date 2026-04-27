@@ -17,34 +17,42 @@
                 <a href="{{ url_for('home') }}">Cat Cafe</a>
             </h1>
 
-            <ul>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('menu') }}">Menu</a></li>
-                <li><a href="{{ url_for('cats') }}">Cats</a></li>
-                <li><a href="{{ url_for('reviews') }}" >Reviews</a></li>
-                <li><a href="{{ url_for('login') }}">Sign In</a></li>
-                <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                <li><a href="{{ url_for('application') }}">Application</a></li>
-                 {% if session.get('user') %}
-                <li class="welcome-user">
-                    Welcome, {{ session['user'] }} 🐾
-                </li>
-                <li class="dropdown">
-                    <button class="dropbtn">
-                        Account ⌄
-                    </button>
+<ul>
+    <li><a href="{{ url_for('about') }}">About</a></li>
+    <li><a href="{{ url_for('menu') }}">Menu</a></li>
+    <li><a href="{{ url_for('cats') }}">Cats</a></li>
+    <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+    <li><a href="{{ url_for('application') }}">Application</a></li>
 
-                    <div class="dropdown-content">
-                        <div class="dropdown-name">
-                            Welcome, {{ session['user'] }}
-                        </div>
+    {% if session.get('user') %}
 
-                        <a href="{{ url_for('my_application') }}">My Application</a>
-                        <a href="{{ url_for('logout') }}">Logout</a>
-                    </div>
-                </li>
-                {% endif %}
-            </ul>
+        <li class="welcome-user">
+            Welcome, {{ session['user'] }} 🐾
+        </li>
+
+        <li class="dropdown">
+            <button class="dropbtn">
+                Account ⌄
+            </button>
+
+            <div class="dropdown-content">
+                <div class="dropdown-name">
+                    Signed in as {{ session['user'] }}
+                </div>
+
+                <a href="{{ url_for('my_application') }}">My Application</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </li>
+
+    {% else %}
+
+        <li><a href="{{ url_for('login') }}">Sign In</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+
+    {% endif %}
+</ul>
         </div>
     </nav>
 

@@ -38,6 +38,13 @@ def contact():
 def menu():
     return render_template("menu.html")
 
+@app.route("/become_member")
+def become_member():
+    if not session.get("userid"):
+        return redirect("/login")
+
+    return render_template("already_member.html") # for if someone clicks about page but is alrdy an member
+
 
 # ---------------- REVIEWS ---------------- #
 
@@ -119,12 +126,25 @@ def get_available_cats():
 
 @app.route("/register")
 def register():
+    if session.get("userid"):
+        return redirect("/")
     return render_template("register.html")
 
 
 @app.route("/register_send", methods=["POST"])
 def register_user():
+    if session.get("userid"):
+        return jsonify(message="Already logged in"), 403
+
     cur = mysql.connection.cursor()
+
+    email = request.form.get("email")
+
+    # prevent duplicate email
+    cur.execute("SELECT userid FROM userinformation WHERE emailid = %s", (email,))
+    if cur.fetchone():
+        cur.close()
+        return jsonify(message="Email already exists"), 400
 
     hashed_password = hashing.generate_password_hash(
         request.form.get("password")
@@ -134,7 +154,7 @@ def register_user():
         INSERT INTO userinformation (emailid, username, password, name)
         VALUES (%s, %s, %s, %s)
     """, (
-        request.form.get("email"),
+        email,
         request.form.get("username"),
         hashed_password,
         request.form.get("name")
@@ -174,10 +194,10 @@ def login_user():
     if not hashing.check_password_hash(hashed_password, request.form.get("password")):
         return jsonify(message="invalid password")
 
-    session['user'] = name
-    session['email'] = request.form.get("email")
-    session['userid'] = userid
-    session['just_logged_in'] = True
+    session["user"] = name
+    session["email"] = request.form.get("email")
+    session["userid"] = userid
+    session["just_logged_in"] = True
 
     return jsonify(success=True)
 
@@ -197,16 +217,15 @@ def application():
 
     cur = mysql.connection.cursor()
 
-    # get selected cat from URL
-    selected_cat = request.args.get("cat_id")
-
-    # check if existing application
+    # check existing application (USERID ONLY)
     cur.execute("""
         SELECT id, status FROM applications
-        WHERE email = %s
-    """, (session["email"],))
+        WHERE userid = %s
+    """, (session["userid"],))
 
     existing_app = cur.fetchone()
+
+    selected_cat = request.args.get("cat_id")
 
     # ---------------- POST ---------------- #
     if request.method == "POST":
@@ -235,9 +254,10 @@ def application():
 
         cur.execute("""
             INSERT INTO applications
-            (full_name, phone, email, address, cat_id, household_size, pets, housing, status)
-            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,'pending')
+            (userid, full_name, phone, email, address, cat_id, household_size, pets, housing, status)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,'pending')
         """, (
+            session["userid"],
             request.form['full_name'],
             request.form['phone'],
             session["email"],
@@ -254,7 +274,6 @@ def application():
         return jsonify(success=True)
 
     # ---------------- AUTOFILL ---------------- #
-
     cur.execute("""
         SELECT name, emailid
         FROM userinformation
@@ -270,7 +289,7 @@ def application():
         user=user,
         already_applied=existing_app is not None,
         existing_status=existing_app[1] if existing_app else None,
-        selected_cat=selected_cat   # 👈 NEW
+        selected_cat=selected_cat
     )
 
 
@@ -296,7 +315,7 @@ def approve(app_id):
 
 @app.route("/my_application")
 def my_application():
-    if not session.get("user"):
+    if not session.get("userid"):
         return redirect("/login")
 
     cur = mysql.connection.cursor()
@@ -306,8 +325,8 @@ def my_application():
                c.name, a.household_size, a.pets, a.housing, a.status
         FROM applications a
         JOIN cats c ON a.cat_id = c.id
-        WHERE a.email = %s
-    """, (session.get("email"),))
+        WHERE a.userid = %s
+    """, (session["userid"],))
 
     app_data = cur.fetchone()
     cur.close()

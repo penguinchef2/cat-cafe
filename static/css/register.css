@@ -89,7 +89,7 @@ nav a:hover::after {
     margin-top: 8px;
 }
 
-/* 🌸 FLOATING KIOSK CARD */
+/* FLOATING KIOSK CARD */
 .form {
     width: min(520px, 92%);
     margin: 50px auto;
