@@ -58,7 +58,16 @@
 
 <h1 class="page-title">🐱 My Application</h1>
 
-{% if app %}
+{% if rejected_popup %}
+
+<div class="application-card rejected">
+    <h2>Application Status</h2>
+    <p>Sorry, you were rejected for this cat.... 😬</p>
+    <p>You can try applying for another cat anytime!</p>
+</div>
+
+{% elif app %}
+
 <div class="application-card">
     <p><b>Name:</b> {{ app[0] }}</p>
     <p><b>Phone:</b> {{ app[1] }}</p>
@@ -68,9 +77,16 @@
     <p><b>Household:</b> {{ app[5] }}</p>
     <p><b>Other Pets:</b> {{ app[6] }}</p>
     <p><b>Housing:</b> {{ app[7] }}</p>
+    <p><b>Status:</b> {{ app[8] }}</p>
+
 </div>
+
 {% else %}
-<p style="text-align:center;">You haven’t submitted an application yet.</p>
+
+<p style="text-align:center;">
+    You haven’t submitted an application yet.
+</p>
+
 {% endif %}
 
 </body>

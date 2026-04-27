@@ -38,12 +38,12 @@ def contact():
 def menu():
     return render_template("menu.html")
 
+
 @app.route("/become_member")
 def become_member():
     if not session.get("userid"):
         return redirect("/login")
-
-    return render_template("already_member.html") # for if someone clicks about page but is alrdy an member
+    return render_template("already_member.html")
 
 
 # ---------------- REVIEWS ---------------- #
@@ -109,14 +109,11 @@ def cat_profile(cat_id):
 
 def get_available_cats():
     cur = mysql.connection.cursor()
-
     cur.execute("""
-        SELECT id, name FROM cats
-        WHERE id NOT IN (
-            SELECT cat_id FROM applications WHERE status = 'approved'
-        )
+        SELECT id, name
+        FROM cats
+        WHERE available = TRUE
     """)
-
     cats = cur.fetchall()
     cur.close()
     return cats
@@ -140,7 +137,6 @@ def register_user():
 
     email = request.form.get("email")
 
-    # prevent duplicate email
     cur.execute("SELECT userid FROM userinformation WHERE emailid = %s", (email,))
     if cur.fetchone():
         cur.close()
@@ -217,35 +213,31 @@ def application():
 
     cur = mysql.connection.cursor()
 
-    # check existing application (USERID ONLY)
-    cur.execute("""
-        SELECT id, status FROM applications
-        WHERE userid = %s
-    """, (session["userid"],))
-
-    existing_app = cur.fetchone()
-
-    selected_cat = request.args.get("cat_id")
-
     # ---------------- POST ---------------- #
     if request.method == "POST":
 
-        if existing_app:
+        # already applied?
+        cur.execute("""
+            SELECT id FROM applications
+            WHERE userid = %s
+        """, (session["userid"],))
+
+        if cur.fetchone():
             cur.close()
             return jsonify({
                 "success": False,
-                "message": f"You already have a {existing_app[1]} application 🐾"
+                "message": "You already have an application 🐾"
             })
 
         cat_id = request.form.get("cat_id")
 
+        # cat already adopted?
         cur.execute("""
             SELECT id FROM applications
             WHERE cat_id = %s AND status = 'approved'
         """, (cat_id,))
-        taken = cur.fetchone()
 
-        if taken:
+        if cur.fetchone():
             cur.close()
             return jsonify({
                 "success": False,
@@ -254,7 +246,8 @@ def application():
 
         cur.execute("""
             INSERT INTO applications
-            (userid, full_name, phone, email, address, cat_id, household_size, pets, housing, status)
+            (userid, full_name, phone, email, address, cat_id,
+             household_size, pets, housing, status)
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,'pending')
         """, (
             session["userid"],
@@ -273,23 +266,35 @@ def application():
 
         return jsonify(success=True)
 
-    # ---------------- AUTOFILL ---------------- #
+    # ---------------- GET ---------------- #
+
     cur.execute("""
-        SELECT name, emailid
-        FROM userinformation
+        SELECT id, status
+        FROM applications
         WHERE userid = %s
+        ORDER BY id DESC
+        LIMIT 1
     """, (session["userid"],))
 
-    user = cur.fetchone()
-    cur.close()
+    app_row = cur.fetchone()
+
+    already_applied = False
+    already_adopted = False
+    existing_status = None
+
+    if app_row:
+        already_applied = True
+        existing_status = app_row[1]
+
+        if app_row[1] == "approved":
+            already_adopted = True
 
     return render_template(
         "application.html",
         cats=get_available_cats(),
-        user=user,
-        already_applied=existing_app is not None,
-        existing_status=existing_app[1] if existing_app else None,
-        selected_cat=selected_cat
+        already_applied=already_applied,
+        already_adopted=already_adopted,
+        existing_status=existing_status
     )
 
 
@@ -300,15 +305,48 @@ def approve(app_id):
     cur = mysql.connection.cursor()
 
     cur.execute("""
+        SELECT cat_id FROM applications
+        WHERE id = %s
+    """, (app_id,))
+    result = cur.fetchone()
+
+    if not result:
+        cur.close()
+        return "Application not found"
+
+    cat_id = result[0]
+
+    cur.execute("""
         UPDATE applications
         SET status = 'approved'
         WHERE id = %s
     """, (app_id,))
 
+    cur.execute("""
+        UPDATE cats
+        SET available = FALSE
+        WHERE id = %s
+    """, (cat_id,))
+
     mysql.connection.commit()
     cur.close()
 
-    return "Application approved!"
+    return "Application approved and cat marked unavailable!"
+
+
+# ---------------- REJECTION ---------------- #
+
+@app.route("/reject/<int:app_id>")
+def reject(app_id):
+    cur = mysql.connection.cursor()
+
+    cur.execute("DELETE FROM applications WHERE id = %s", (app_id,))
+
+    mysql.connection.commit()
+    cur.close()
+
+    session["rejected_popup"] = True
+    return redirect("/my_application")
 
 
 # ---------------- MY APPLICATION ---------------- #
@@ -331,7 +369,13 @@ def my_application():
     app_data = cur.fetchone()
     cur.close()
 
-    return render_template("my_application.html", app=app_data)
+    rejected_popup = session.pop("rejected_popup", False)
+
+    return render_template(
+        "my_application.html",
+        app=app_data,
+        rejected_popup=rejected_popup
+    )
 
 
 # ---------------- RUN ---------------- #

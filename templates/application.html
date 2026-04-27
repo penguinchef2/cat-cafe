@@ -63,26 +63,36 @@
     <p class="page-subtitle">help a cat find a forever home 🐾</p>
 </header>
 
-{# ---------------- BLOCK IF USER ALREADY APPLIED ---------------- #}
-{% if already_applied %}
+{# ---------------- CASE 1: ALREADY ADOPTED ---------------- #}
+{% if already_adopted %}
+
+<div class="form-container">
+    <div class="success-message">
+        <h2>🐱 You’ve already adopted a cat!</h2>
+        <p>Limit: one cat per person 🐾</p>
+        <a href="{{ url_for('cats') }}" class="btn-back">Browse Cats</a>
+    </div>
+</div>
+
+{# ---------------- CASE 2: ALREADY APPLIED ---------------- #}
+{% elif already_applied %}
 
 <div class="form-container">
     <div class="success-message">
         <h2>🐾 You already submitted an application!</h2>
         <p>Status: <b>{{ existing_status }}</b></p>
-        <p>You can only apply for one cat at a time.</p>
-
         <a href="{{ url_for('my_application') }}" class="btn-back">
             View My Application
         </a>
     </div>
 </div>
 
+{# ---------------- CASE 3: SHOW FORM ---------------- #}
 {% else %}
 
 <div class="form-container">
 
-    <form class="app-form" method="POST" action="/application">
+    <form class="app-form">
 
         <div class="field">
             <label>Phone Number</label>
@@ -140,17 +150,13 @@
 
 </div>
 
-{% endif %}
-
 <script>
 document.querySelector(".app-form")?.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    const formData = new FormData(this);
-
     const response = await fetch("/application", {
         method: "POST",
-        body: formData
+        body: new FormData(this)
     });
 
     const result = await response.json();
@@ -161,7 +167,7 @@ document.querySelector(".app-form")?.addEventListener("submit", async function(e
                 <img src="/static/images/success.png" class="success-img">
                 <h2>Your application has been submitted!</h2>
                 <p>We’ll review it soon 🐱</p>
-                <a href="/application" class="btn-back">Submit another</a>
+                <a href="/application" class="btn-back">Back</a>
             </div>
         `;
     } else {
@@ -169,6 +175,8 @@ document.querySelector(".app-form")?.addEventListener("submit", async function(e
     }
 });
 </script>
+
+{% endif %}
 
 </body>
 </html>
