@@ -56,17 +56,17 @@ INSERT INTO `applications` (`id`, `full_name`, `phone`, `email`, `address`, `cat
 CREATE TABLE `cats` (
   `id` int NOT NULL DEFAULT '0',
   `name` varchar(100) DEFAULT NULL,
-  `age` int DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
   `breed` varchar(100) DEFAULT NULL,
-  `info` text,
-  `personality` text,
-  `likes` text,
-  `dislikes` text,
-  `fun_facts` text,
+  `info` text DEFAULT NULL,
+  `personality` text DEFAULT NULL,
+  `likes` text DEFAULT NULL,
+  `dislikes` text DEFAULT NULL,
+  `fun_facts` text DEFAULT NULL,
   `favorite_toy` varchar(100) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `available` tinyint(1) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `available` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cats`
@@ -126,6 +126,20 @@ INSERT INTO `userinformation` (`userid`, `emailid`, `username`, `password`, `nam
 (4, 'mithapoop@gmail.com', 'mithapoop1', '$2b$12$4W6oZrWelBdqrpXWOxep8eds4H8R8e.wnfg1giPE9Sv0TLfWXu/i.', 'mitha poop'),
 (5, 'poop1@gmail.com', 'poopyehead', '$2b$12$wo.ugtuqv07rut4vuWTJZe9X616gll6EpElBCRsKPfY/NloORP9ha', 'poop1');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userinformation`
+--
+
+CREATE TABLE `userinformation` (
+  `userid` int(11) NOT NULL,
+  `emailid` varchar(55) DEFAULT NULL,
+  `username` varchar(40) DEFAULT NULL,
+  `password` varchar(70) DEFAULT NULL,
+  `name` varchar(70) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -149,6 +163,12 @@ ALTER TABLE `reviews`
 ALTER TABLE `userinformation`
   ADD PRIMARY KEY (`userid`),
   ADD UNIQUE KEY `emailid` (`emailid`);
+
+--
+-- Indexes for table `userinformation`
+--
+ALTER TABLE `userinformation`
+  ADD PRIMARY KEY (`userid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
