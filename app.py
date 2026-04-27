@@ -289,12 +289,23 @@ def application():
         if app_row[1] == "approved":
             already_adopted = True
 
+    cur.execute("""
+    SELECT name, emailid
+    FROM userinformation
+    WHERE userid = %s
+""", (session["userid"],))
+
+    user_info = cur.fetchone()
+    cur.close()
+
+
     return render_template(
         "application.html",
         cats=get_available_cats(),
         already_applied=already_applied,
         already_adopted=already_adopted,
-        existing_status=existing_status
+        existing_status=existing_status,
+        user=user_info 
     )
 
 
