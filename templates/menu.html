@@ -1,98 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Menu</title>
-    <link rel="stylesheet" href="../static/css/menu.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
-    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+    <link rel="stylesheet" href="../static/css/menu.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/navbar.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/dropdown.css') }}"
+    />
+    <script
+      defer
+      src="{{ url_for('static', filename='js/dropdown.js') }}"
+    ></script>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Hanuman:wght@100..900&family=Outfit:wght@100..900&display=swap"
+    />
+  </head>
+  <body style="margin-bottom: 50px">
     <nav>
-        <div class="nav-inner">
-            <h1 class="logo">
-                <a href="{{ url_for('home') }}">Cat Cafe</a>
-            </h1>
+      <div class="nav-inner">
+        <h1 class="logo">
+          <a href="{{ url_for('home') }}">Cat Cafe</a>
+        </h1>
 
-<ul>
-    <li><a href="{{ url_for('about') }}">About</a></li>
-    <li><a href="{{ url_for('menu') }}">Menu</a></li>
-    <li><a href="{{ url_for('cats') }}">Cats</a></li>
-    <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
-    <li><a href="{{ url_for('contact') }}">Contact</a></li>
-    <li><a href="{{ url_for('application') }}">Application</a></li>
+        <ul>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('menu') }}">Menu</a></li>
+          <li><a href="{{ url_for('cats') }}">Cats</a></li>
+          <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+          <li><a href="{{ url_for('application') }}">Application</a></li>
 
-    {% if session.get('user') %}
+          {% if session.get('user') %}
 
-        <li class="welcome-user">
-            Welcome, {{ session['user'] }} 🐾
-        </li>
+          <li class="welcome-user">Welcome, {{ session['user'] }} 🐾</li>
 
-        <li class="dropdown">
-            <button class="dropbtn">
-                Account ⌄
-            </button>
+          <li class="dropdown">
+            <button class="dropbtn">Account ⌄</button>
 
             <div class="dropdown-content">
-                <div class="dropdown-name">
-                    Signed in as {{ session['user'] }}
-                </div>
+              <div class="dropdown-name">
+                Signed in as {{ session['user'] }}
+              </div>
 
-                <a href="{{ url_for('my_application') }}">My Application</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
+              <a href="{{ url_for('my_application') }}">My Application</a>
+              <a href="{{ url_for('logout') }}">Logout</a>
             </div>
-        </li>
+          </li>
 
-    {% else %}
+          {% else %}
 
-        <li><a href="{{ url_for('login') }}">Sign In</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
+          <li><a href="{{ url_for('login') }}">Sign In</a></li>
+          <li><a href="{{ url_for('register') }}">Register</a></li>
 
-    {% endif %}
-</ul>
-        </div>
+          {% endif %}
+        </ul>
+      </div>
     </nav>
 
-<h1 class="menu-title">Menu</h1>
-<p class="menu-subtitle">drinks / all items</p>
+    <h1 class="menu-title">Menu</h1>
+    <p class="menu-subtitle">drinks / all items</p>
 
-<div class="menu-container">
-    <div id="menu-grid" class="menu-grid">
+    <div class="menu-container">
+      <div id="menu-grid" class="menu-grid"></div>
     </div>
-</div>
 
-<script>
-const menuItems = [
-    { name: "Cafe Break", price: 5, img: "static/images/cafebreak.jpeg" },
-    { name: "Cafe Dessert", price: 4, img: "static/images/cafedessert.jpeg" },
-    { name: "Cafe Sandwich", price: 7, img: "static/images/cafesandwich.jpeg" },
-    { name: "Latte", price: 5, img: "static/images/latte.jpg" },
-    { name: "Croissant", price: 4, img: "static/images/croissant.png" },
-    { name: "Muffin", price: 3, img: "static/images/muffin.png" },
-    { name: "Tea", price: 3, img: "static/images/tea.png" },
-    { name: "Cake Pop", price: 2, img: "static/images/cakepop.png" },
-    { name: "Salad", price: 4, img: "static/images/salad.png" }
-];
+    <script>
+      const menuItems = [
+        {
+          name: "Cafe Breakfast",
+          price: 20,
+          img: "static/images/cafebreak.jpeg",
+        },
+        {
+          name: "Cafe Dessert",
+          price: 4,
+          img: "static/images/cafedessert.jpeg",
+        },
+        {
+          name: "Cafe Sandwich",
+          price: 7,
+          img: "static/images/cafesandwich.jpeg",
+        },
+        { name: "Latte", price: 5, img: "static/images/latte.jpg" },
+        { name: "Croissant", price: 4, img: "static/images/croissant.png" },
+        { name: "Muffin", price: 3, img: "static/images/muffin.png" },
+        { name: "Tea", price: 3, img: "static/images/tea.png" },
+        { name: "Cake Pop", price: 2, img: "static/images/cakepop.png" },
+        { name: "Salad", price: 4, img: "static/images/salad.png" },
+      ];
 
-const container = document.getElementById("menu-grid");
+      const container = document.getElementById("menu-grid");
 
-menuItems.forEach(item => {
-    const card = document.createElement("div");
-    card.classList.add("menu-card");
+      menuItems.forEach((item) => {
+        const card = document.createElement("div");
+        card.classList.add("menu-card");
 
-    card.innerHTML = `
+        card.innerHTML = `
         <img src="${item.img}" alt="${item.name}">
         <h3>${item.name}</h3>
         <p>$${item.price}</p>
     `;
 
-    container.appendChild(card);
-});
-</script>
-
-</body>
+        container.appendChild(card);
+      });
+    </script>
+  </body>
 </html>
