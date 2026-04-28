@@ -16,11 +16,13 @@
 ## Setup Instructions
 
 1.  Clone the repository
-    git clone https://github.com/yourusername/cat-cafe.git
-    cd cat-cafe
+
+        git clone https://github.com/yourusername/cat-cafe.git
+        cd cat-cafe
 
 2.  Create a virtual environment (recommended)
-    python -m venv venv
+
+        python -m venv venv
 
     Activate it:
 
@@ -31,7 +33,8 @@
             source venv/bin/activate
 
 3.  Install dependencies
-    pip install flask flask-mysqldb flask-bcrypt
+
+        pip install flask flask-mysqldb flask-bcrypt
 
 4.  Set up the database
 
@@ -40,9 +43,12 @@
     Import the database
     Open phpMyAdmin (http://localhost/phpmyadmin)
     Create a database named:
-    cat_cafe
+
+        cat_cafe
+
     Import the SQL file:
-    cat_cafe.sql
+
+        cat_cafe.sql
 
 5.  Configure your database connection
 
@@ -57,7 +63,9 @@
 ## Usage Instructions
 
 1. Run the Flask application
+
    python app.py
 
    Then open:
+
    http://127.0.0.1:5050
