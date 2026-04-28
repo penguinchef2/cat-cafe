@@ -1,0 +1,237 @@
+body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(to bottom, #f7f7f7, #ffffff);
+    margin: 0;
+}
+
+nav {
+    background-color: #f4c1c1;
+}
+
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;             
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+/* LOGO ONLY */
+.logo {
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
+}
+
+/* NAV LINKS */
+nav ul {
+    display: flex;
+    list-style: none;   
+    gap: 30px;   
+}
+
+nav a {
+    position: relative;  
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+nav a.active {
+    border-bottom: 2px solid black;
+    padding-bottom: 3px;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: black;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.back-btn {
+    display: inline-block;
+    margin: 20px 0 0 60px;
+    padding: 10px 16px;
+    background: white;
+    border-radius: 999px;
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.profile-wrapper {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.4fr;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 40px auto 80px;
+    align-items: stretch;
+}
+
+/* container that stacks the cards vertically */
+.personality-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;           /* vertical spacing between cards */
+  width: 100%;
+  align-items: stretch;
+}
+
+/* ensure each card fills the available width */
+.personality-stack .card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* optional: make cards slightly narrower on very wide screens */
+@media (min-width: 1200px) {
+  .personality-stack {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+.left-col,
+.right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.cat-img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+    border: 4px solid #fff;
+}
+
+/* NAME BADGE */
+.name-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: white;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-family: 'Caprasimo', serif;
+}
+
+/* SPEECH BUBBLE */
+.speech-bubble {
+    position: absolute;
+    top: 18px;
+    right: -10px;
+    background: white;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    animation: floatBubble 3s ease-in-out infinite;
+}
+
+.speech-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+}
+
+@keyframes floatBubble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* CARDS */
+.card {
+    padding: 22px;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+}
+
+.intro { background: #ffe3e3; }
+.favorites { background: #e6f3d6; }
+.about { background: #eadcff; }
+.adopt { background: #ffeaa0; text-align: center; }
+
+.favorites p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* PAW DIVIDER */
+.paw-divider {
+    text-align: center;
+    font-size: 22px;
+    opacity: 0.6;
+    letter-spacing: 8px;
+}
+
+/* ADOPT BUTTON */
+.adopt-btn {
+    margin-top: 10px;
+    padding: 12px 20px;
+    background: #ffcc00;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    animation: pulse 2.2s infinite;
+}
+
+.adopt-btn:hover {
+    transform: scale(1.08);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+
+.adopt-btn.disabled {
+    background: #ddd;
+    animation: none;
+    cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+    .profile-wrapper {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .cat-img {
+        height: 320px;
+    }
+}

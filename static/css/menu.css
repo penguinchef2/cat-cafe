@@ -12,26 +12,69 @@ body {
 }
 
 /* ---------------- NAVBAR ---------------- */
-.navbar {
+nav {
     background-color: #f4c1c1;
-    height: 75px;
+}
+
+/* CENTERED CONTENT */
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;             
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+    padding: 20px 40px;
 }
 
-.navbar a {
-    color: black;
+/* LOGO ONLY */
+.logo {
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo a {
     text-decoration: none;
-    padding: 25px 55px 35px 55px;
-    font-size: 20px;
+    color: black;
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
 }
 
-.navhover:hover {
-    background-color: #faadad;
-    cursor: pointer;
+/* NAV LINKS */
+nav ul {
+    display: flex;
+    list-style: none;   
+    gap: 30px;   
 }
 
+nav a {
+    position: relative;  
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+nav a.active {
+    border-bottom: 2px solid black;
+    padding-bottom: 3px;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: black;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
 /* ---------------- PAGE TITLE ---------------- */
 .menu-title {
     font-size: 70px;
@@ -39,11 +82,15 @@ body {
     text-align: center;
     margin-top: 40px;
     margin-bottom: 10px;
+    font-family: "Caprasimo", serif;
+
 }
 
 .menu-subtitle {
     text-align: center;
-    font-size: 30px;
+    font-size: 18px;
+    opacity: 0.7;
+    margin-top: 10px;
     margin-bottom: 40px;
 }
 

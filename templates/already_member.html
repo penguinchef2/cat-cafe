@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome Back, Member! </title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/already_member.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
+    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+    <div class="nav-inner">
+        <h1 class="logo">
+            <a href="{{ url_for('home') }}">Cat Cafe</a>
+        </h1>
+
+    <ul>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('menu') }}">Menu</a></li>
+        <li><a href="{{ url_for('cats') }}">Cats</a></li>
+        <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="{{ url_for('application') }}">Application</a></li>
+
+        {% if session.get('user') %}
+
+            <li class="welcome-user">
+                Welcome, {{ session['user'] }} 🐾
+            </li>
+
+            <li class="dropdown">
+                <button class="dropbtn">
+                    Account ⌄
+                </button>
+
+                <div class="dropdown-content">
+                    <div class="dropdown-name">
+                        Signed in as {{ session['user'] }}
+                    </div>
+
+                    <a href="{{ url_for('my_application') }}">My Application</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </li>
+
+        {% else %}
+
+            <li><a href="{{ url_for('login') }}">Sign In</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+
+        {% endif %}
+    </ul>
+        </div>
+    </nav>
+
+    <div class="member-container">
+
+    <h1>Welcome back, {{ session['user'] }} 🐾</h1>
+
+    <p class="member-text">
+        You’re already signed in and part of the Cat Cafe family.
+        You can continue your journey below.
+    </p>
+
+    <div class="member-actions">
+
+        <a href="{{ url_for('application') }}">
+            <button class="member-btn">Continue Application</button>
+        </a>
+
+        <a href="{{ url_for('cats') }}">
+            <button class="member-btn secondary">Browse Cats</button>
+        </a>
+
+        <a href="{{ url_for('my_application') }}">
+            <button class="member-btn secondary">My Application</button>
+        </a>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

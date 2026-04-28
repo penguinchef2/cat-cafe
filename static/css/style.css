@@ -1,38 +1,65 @@
-/* navbar */
 nav {
+    background-color: #f4c1c1;
+}
+
+/* CENTERED CONTENT */
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;             
     display: flex;
-    font-family: 'Caprasimo';
-    font-weight: 500px;
     justify-content: space-between;
     align-items: center;
-
-    background-color: #f4c1c1;
-
-    padding: 20px 40px;   /* makes it BIGGER */
+    padding: 20px 40px;
 }
 
-
-/* LINKS CONTAINER */
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 40px;            /* more space between links */
-    margin: 0;
-    padding: 0;
+/* LOGO ONLY */
+.logo {
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-/* LINKS */
-nav a {
+.logo a {
     text-decoration: none;
     color: black;
-    font-weight: bold;
-    font-size: 18px;      /* bigger text */
+    font-family: 'Caprasimo', serif;
+    font-size: 28px;
 }
 
-/* TITLE */
-nav h1 {
-    margin: 0;
-    font-size: 28px;      /* bigger logo text */
+/* NAV LINKS */
+nav ul {
+    display: flex;
+    list-style: none;   
+    gap: 30px;   
+}
+
+nav a {
+    position: relative;  
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+nav a.active {
+    border-bottom: 2px solid black;
+    padding-bottom: 3px;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: black;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 /* HOME PAGE */
@@ -47,6 +74,8 @@ body {
 
     position: relative;
     overflow-x: hidden;
+    background: linear-gradient(to bottom, #fff7f7, #ffffff);
+
 }
 
 
@@ -87,152 +116,229 @@ body {
 }
 
 /* CATS.HTML */
+
 .cats-header {
-    margin: 40px auto 0 auto; 
-    padding-left: 10px;
-    margin-left: 10px;
-    font-size: 32px; 
-    letter-spacing: 1px;
+    text-align: center;
+    margin: 60px auto 30px;
+    max-width: 800px;
 }
 
-.cats-footer {
-    text-align : center;
-    padding: 30px; 
+.cats-header h2 {
+    font-size: 38px;
+    font-family: 'Caprasimo', serif;
 }
 
-.cats-footer button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    background-color: #d6b3ff;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+.cats-header p {
+    margin-top: 12px;
+    color: #555;
+    font-size: 16px;
 }
 
-.cats-footer button:hover {
-    background-color: #c299ff;
-}
-
-/* ABOUT US */
-
-/* GRID LAYOUT */
+/* GRID */
 .cat-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    padding: 30px;
+    gap: 28px;
+    padding: 40px 30px;
 }
 
-/* CAT CARDS */
+/* CARD */
 .cat-card {
     background-color: white;
-    padding: 20px;
+    padding: 18px;
     text-align: center;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+/* IMAGE */
+.cat-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+/* TEXT */
+.cat-card h3 {
+    font-family: 'Caprasimo', serif;
+    margin-bottom: 6px;
+}
+
+.cat-card p {
+    margin-bottom: 10px;
+    color: #555;
 }
 
 /* BUTTON */
 .cat-card button {
-    margin-top: 10px;
+    margin-top: 8px;
     padding: 10px 15px;
     border: none;
     background-color: #ffc800;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 .cat-card button:hover {
     background-color: #e0b005;
 }
 
-.cat-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;   /* makes all images same size */
-    border-radius: 10px;
-    margin-bottom: 10px;
+/* FOOTER */
+.cats-footer {
+    text-align: center;
+    padding: 50px 20px;
 }
 
-/* ABOUT HEADER */
-.about-header {
-    max-width: 65px;
-    padding-left: 5px;
-    margin-left: 10px;
-    font-size: 32px; 
-    letter-spacing: 1px;
+.cats-footer p {
+    font-size: 16px;
+    margin-bottom: 12px;
 }
 
-
-.about-row {
-    display: flex;
-    gap: 40px;
-
-    width: 100%;
-    max-width: 1200px;
-    margin: 40px auto;
-}
-
-/* LEFT LABEL */
-.about-label {
-    width: 150px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #777;
-}
-
-.about-text {
-    flex: 1;
-    text-align: left;
-    width: 100%;
-}
-
-.about-text h3 {
-     width: 150px;
-    color: #777;
-    font-size: 12px;
-    font-weight: bold; 
-
-}
-
-.about-label p {
-    letter-spacing: 2px;
-}
-
-.about-image {
-    width: 100%;
-}
-
-.about-image img {
-    width: 90%;          /* controls size */
-    max-width: 750px;    /* prevents it getting huge */
-    height: auto;
-
-    display: block;
-    margin: 20px 0;      /* keeps it aligned left */
-    border-radius: 15px;
-}
-
-.leading-text {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-/* BUTTON */
-.member-btn {
-    margin-top: 20px;
-    padding: 12px 20px;
+.cats-footer button {
+    padding: 10px 15px;
     border: none;
     background-color: #d6b3ff;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    font-family: 'Hanuman';
+    transition: 0.2s;
+}
+
+.cats-footer button:hover {
+    background-color: #c299ff;
+}
+
+/* =========================
+   ABOUT PAGE
+========================= */
+
+.about-header {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.about-header h3 {
+    font-family: 'Caprasimo', serif;
+    font-size: 32px;
+}
+
+/* HERO SECTION */
+.about-hero {
+    text-align: center;
+    padding: 90px 20px 40px;
+}
+
+.about-hero h1 {
+    font-size: 56px;
+    font-family: 'Caprasimo', serif;
+}
+
+.about-hero p {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.about-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 60px auto;
+    align-items: start;
+}
+
+/* LEFT LABEL COLUMN */
+.about-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    border-right: 2px solid #f4c1c1;
+    padding-right: 15px;
+    padding-top: 6px;
+}
+
+.about-label p {
+    margin: 0;
+}
+
+/* RIGHT CONTENT BOX */
+.about-text {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+/* TEXT HIERARCHY */
+.about-text h2 {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.about-text h2:first-child {
+    margin-top: 0;
+}
+
+.about-text p {
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+/* EMPHASIS TEXT */
+.leading-text {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* IMAGE STYLING */
+.about-image {
+    width: 100%;
+}
+
+.about-image img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 30px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* BUTTON */
+
+.member-btn {
+    margin-top: 30px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+
+    background: linear-gradient(135deg, #ffc800, #ffdd55);
+    box-shadow: 0 8px 20px rgba(255, 200, 0, 0.25);
+    transition: all 0.2s ease;
+
+    font-family: 'Outfit', sans-serif;
 }
 
 .member-btn:hover {
-    background-color: #c299ff;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 200, 0, 0.35);
 }

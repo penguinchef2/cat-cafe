@@ -1,84 +1,136 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Register</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
-    </head>
-    <body>
-        <main>
-            <nav class = "navbar">
-                <a class = "navhover" href="{{ url_for('about') }}">About</a>
-                <a class = "navhover">Menu</a>
-                <a class = "navhover" href="{{ url_for('cats') }}">Cats</a>
-                <a class = "navhover">Reviews</a>
-                <a class = "navhover" href="{{ url_for('login') }}">Sign In</a>
-                <a class = "navhover">Contact</a>
-            </nav>
-            <section class = "title">
-                <h1 class = "cattitle">Cat Cafe</h1>
-                <h2 class = "logintitle">Register</h2>
-            </section>
-            <section class = "form">
-                <form id = "formdata">
-                    <label for = "name" class = "logintxt">Name</label><br>
-                    <input type = "text" name = "name" class = "box" required placeholder = "Enter your name"><br>
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
 
-                    <label for = "username" class = "logintxt">Username</label><br>
-                    <input type = "text" name = "username" class = "box" required placeholder = "Enter a username"><br>
-                    
-                    <label for = "email" class = "logintxt">Email</label><br>
-                    <input type = "text" id = "email" name = "email" class = "box"  required placeholder = "Enter your email"><br>
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <script defer src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dropdown.css') }}">
 
-                    <label for = "password" class = "logintxt">Password</label><br>
-                    <input type = "text" id = "password" name = "password" class = "box"  required placeholder = "Enter your password"><br>
+</head>
 
-                    <label for = "confirmpassword" class = "logintxt">Confirm Password</label><br>
-                    <input type = "text" id = "confirmpassword" class = "box"  required placeholder = "Re-enter your password"><br>
+<body>
+<nav>
+    <div class="nav-inner">
+        <h1 class="logo">
+            <a href="{{ url_for('home') }}">Cat Cafe</a>
+        </h1>
 
-                    <button type = "submit" class = "loginbtn">Register</button>
-                    <label for = "confirmpassword" class = "registertext">Already have an account? Login </label><br>
+<ul>
+    <li><a href="{{ url_for('about') }}">About</a></li>
+    <li><a href="{{ url_for('menu') }}">Menu</a></li>
+    <li><a href="{{ url_for('cats') }}">Cats</a></li>
+    <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+    <li><a href="{{ url_for('application') }}">Application</a></li>
 
-                </form>
-               
-            </section>
+    {% if session.get('user') %}
 
+        <li class="welcome-user">
+            Welcome, {{ session['user'] }} 🐾
+        </li>
 
-            
-        </section>
-        </main>
-    
-        
-        <script>
-            const form = document.getElementById("formdata")
-            form.addEventListener("submit", async function(register) {
-                register.preventDefault()
-                
-                var password = document.getElementById("password").value;
-                var passcheck = document.getElementById("confirmpassword").value;
+        <li class="dropdown">
+            <button class="dropbtn">
+                Account ⌄
+            </button>
 
-                if (password != passcheck){
-                    alert("Incorrect password entered");
-                    return;
-                }
+            <div class="dropdown-content">
+                <div class="dropdown-name">
+                    Signed in as {{ session['user'] }}
+                </div>
 
-                let registerData = new FormData(form)
+                <a href="{{ url_for('my_application') }}">My Application</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </li>
 
-                try{
-                 await fetch ("/register_send", {
-                    method: "POST",
-                    body: registerData
+    {% else %}
 
-                })
+        <li><a href="{{ url_for('login') }}">Sign In</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
 
-                window.location.href = "/login"
-            } catch(err){
-                alert(err)
-            }
-            })
-        </script>
-    </body>
+    {% endif %}
+</ul>
+    </div>
+</nav>
+
+<h2 class="logintitle">Join the Cat Cafe 🐱</h2>
+<p class="subtitle">Create your account</p>
+
+<section class="form">
+
+<form id="formdata">
+
+    <div class="field">
+        <label>Name</label>
+        <input type="text" name="name" class="box" placeholder="Enter your name">
+    </div>
+
+    <div class="field">
+        <label>Username</label>
+        <input type="text" name="username" class="box" placeholder="Enter username">
+    </div>
+
+    <div class="field">
+        <label>Email</label>
+        <input type="text" name="email" class="box" placeholder="Enter email">
+    </div>
+
+    <div class="field">
+        <label>Password</label>
+        <input type="password" id="password" name="password" class="box" placeholder="Enter password">
+    </div>
+
+    <div class="field">
+        <label>Confirm Password</label>
+        <input type="password" id="confirmpassword" class="box" placeholder="Confirm password">
+    </div>
+
+    <button class="loginbtn" type="submit">Register</button>
+
+    <p class="registertext">
+        Already have an account?
+        <a href="{{ url_for('login') }}">Login</a>
+    </p>
+
+</form>
+
+</section>
+
+<script>
+const form = document.getElementById("formdata");
+
+form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirmpassword").value;
+
+    if (password !== confirm) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    const formData = new FormData(form);
+
+    const res = await fetch("/register_send", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+        window.location.href = "/login";
+    } else {
+        alert("Something went wrong");
+    }
+});
+</script>
+
+</body>
 </html>

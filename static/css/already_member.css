@@ -1,0 +1,79 @@
+body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(to bottom, #fff7f7, #ffffff);
+}
+
+.member-container {
+    max-width: 800px;
+    margin: 80px auto;
+    text-align: center;
+    padding: 40px 30px;
+    background: #fffaf6;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    font-family: "Outfit", sans-serif;
+}
+
+/* greeting */
+.member-container h1 {
+    font-family: "Caprasimo", serif;
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #3a2d2a;
+}
+
+/* text under greeting */
+.member-text {
+    font-size: 18px;
+    color: #5a4a46;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+/* button container */
+.member-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* main buttons */
+.member-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #d9a066;
+    color: white;
+    transition: 0.2s ease;
+    min-width: 220px;
+    font-family: 'Outfit', sans-serif;
+
+}
+
+/* hover effect */
+.member-btn:hover {
+    background: #c88b55;
+    transform: translateY(-2px);
+}
+
+/* more button colors */
+.member-btn.secondary {
+    background: #f2e6dc;
+    color: #3a2d2a;
+}
+
+.member-btn.secondary:hover {
+    background: #e6d4c6;
+}
+
+/* cat deco */
+.member-container::before {
+    content: "🐾";
+    font-size: 30px;
+    display: block;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
